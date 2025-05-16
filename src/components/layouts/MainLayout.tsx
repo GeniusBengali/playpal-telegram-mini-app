@@ -1,11 +1,17 @@
-import {Navigate, Outlet} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import BottomNavigation from "../ui/BottomNavigation.tsx";
-import {useAuth} from "../../auth-provider.tsx";
+import {useAuth} from "../../context/auth-provider.tsx";
+import {AuthState} from "../../data-types.ts";
 
 const MainLayout = () => {
-  const {session} = useAuth();
+  const {authState} = useAuth();
+  const navigate = useNavigate()
 
-  if(!session) return <Navigate to="/auth/sign-in" />;
+  if(authState == AuthState.UNAUTHENTICATED){
+    navigate("/auth/sign-in", {
+      replace: true
+    })
+  }
 
   return (
     <div className="font-roboto">

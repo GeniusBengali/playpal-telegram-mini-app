@@ -1,8 +1,8 @@
 import {createContext, use, useEffect, useState} from "react";
-import {type AppUser, AuthState} from "./data-types.ts";
+import {type AppUser, AuthState} from "../data-types.ts";
 import {type Session} from "@supabase/auth-js";
 import * as React from "react";
-import {supabase} from "./lib/supabase/client.ts";
+import {supabase} from "../lib/supabase/client.ts";
 import type {OAuthResponse} from "@supabase/supabase-js";
 import {toast} from "sonner";
 type AuthContextType = {

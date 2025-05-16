@@ -14,3 +14,6 @@
   box-shadow:  5px 5px 8px #160522,
               -5px -5px 8px #320d50;
 }
+.gradient-font {
+  @apply text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text
+}

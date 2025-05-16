@@ -1,5 +1,5 @@
 import {FaSackDollar} from "react-icons/fa6";
-import {IoAddCircle} from "react-icons/io5";
+import {IoAddCircle, IoLogOutOutline} from "react-icons/io5";
 import {useState} from "react";
 import {supabase} from "../../lib/supabase/client.ts";
 import type {AppUser} from "../../data-types.ts";
@@ -30,11 +30,18 @@ const ProfileHeader = ({
     }
 
     updateUser(data!)
-
-    setBalanceVisible(true)
-    setTimeout(() => {
-      setBalanceVisible(false)
-    }, 3000)
+    
+    // Rewarded interstitial
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    show_9339498().then(() => {
+      // You need to add your user reward function here, which will be executed after the user watches the ad.
+      // For more details, please refer to the detailed instructions.
+      setBalanceVisible(true)
+      setTimeout(() => {
+        setBalanceVisible(false)
+      }, 3000)
+    })
   }
 
   return (
@@ -42,10 +49,13 @@ const ProfileHeader = ({
       <div className="bg-[#27C9FF59] rounded-full absolute -top-[50px] -left-[190px] w-[155px] h-[340px] rotate-45 blur-[130px]" />
       <div className="bg-[#FBD13066] rounded-full absolute -bottom-[190px] -right-[140px] w-[155px] h-[340px] -rotate-[16px] blur-[130px]" />
       {/*<h6 className={`font-roboto capitalize text-center p-2 text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text`}>Profile</h6>*/}
-      <div className="flex gap-2 items-end p-4">
+      <div className="flex gap-2 items-end p-4 relative">
+        <button className="absolute top-0 right-0 m-2" onClick={async () => {await supabase.auth.signOut()}}>
+          <IoLogOutOutline size={24} />
+        </button>
         <img src={user?.picture} alt="avatar" className="size-20 rounded-full object-cover border border-gray-500 p-1" />
         <div>
-          <h6 className="font-roboto font-bold mb-2 text-xl">{user?.name}</h6>
+          <h6 className="font-roboto font-bold mb-2 text-xl gradient-font">{user?.name}</h6>
           <div className="w-36 h-7 bg-white border border-white rounded-full overflow-hidden relative flex items-center">
             <p className="px-2 text-gray-800">{user?.balance} TK</p>
 
@@ -56,7 +66,7 @@ const ProfileHeader = ({
                   size={18}
                 />
                 {balanceLoading && (
-                  <div className="absolute size-6 border-2 p-2 border-dashed border-white top-1/2 left-1/2 -translate-1/2 rounded-full bg-yellow-600 animate-spin"></div>
+                  <div className="absolute size-6 border-2 p-2 border-dashed border-white top-1/2 left-1/2 -translate-1/2 rounded-full bg-yellow-500 animate-spin"></div>
                 )}
               </div>
               <p className="font-roboto text-sm">Playpal</p>

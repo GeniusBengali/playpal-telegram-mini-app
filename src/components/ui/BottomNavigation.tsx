@@ -25,7 +25,7 @@ const BottomNavigation = () => {
         ) : (
           <IoHome size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/" ? "text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text" : ""}`}>HOME</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/" ? "gradient-font" : ""}`}>HOME</h6>
       </Link>
       <Link to="/games" className={`flex flex-col items-center gap-1 ${getPath === "/games" ? "text-yellow-600" : ""}`}>
         { getPath === "/games" ? (
@@ -43,7 +43,7 @@ const BottomNavigation = () => {
         ) : (
           <GiSwordsPower size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/games" ? "text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text" : ""}`}>GAMES</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/games" ? "gradient-font" : ""}`}>GAMES</h6>
       </Link>
       <Link to="/topup" className={`flex flex-col items-center gap-1 ${getPath === "/topup" ? "text-yellow-600" : ""}`}>
         { getPath === "/topup" ? (
@@ -61,7 +61,7 @@ const BottomNavigation = () => {
         ) : (
           <IoDiamond size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/topup" ? "text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text" : ""}`}>TOPUP</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/topup" ? "gradient-font" : ""}`}>TOPUP</h6>
       </Link>
       <Link to="/payout" className={`flex flex-col items-center gap-1 ${getPath === "/payout" ? "text-yellow-600" : ""}`}>
         { getPath === "/payout" ? (
@@ -79,7 +79,7 @@ const BottomNavigation = () => {
         ) : (
           <FaHandHoldingDollar size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/payout" ? "text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text" : ""}`}>PAYOUT</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/payout" ? "gradient-font" : ""}`}>PAYOUT</h6>
       </Link>
     </div>
   )
