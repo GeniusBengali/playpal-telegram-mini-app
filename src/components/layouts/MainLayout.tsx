@@ -14,9 +14,31 @@ const MainLayout = () => {
   }
 
   return (
-    <div className="font-roboto">
-      <Outlet />
-      <BottomNavigation />
+    <div className="font-roboto h-dvh flex flex-col">
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-expect-error */}
+      <adsgram-task
+        data-block-id='task-10982'
+        data-debug="false"
+        className="task"
+      >
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-expect-error */}
+      </adsgram-task>
+      <div className="flex-1 overflow-y-auto">
+        <Outlet/>
+      </div>
+      <BottomNavigation/>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-expect-error */}
+      <adsgram-task
+        data-block-id='task-10982'
+        data-debug="false"
+        className="task"
+      >
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-expect-error */}
+      </adsgram-task>
     </div>
   )
 }

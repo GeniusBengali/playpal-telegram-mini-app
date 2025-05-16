@@ -8,7 +8,7 @@ const BottomNavigation = () => {
   const getPath = useLocation().pathname
 
   return (
-    <div className="fixed bottom-0 z-50 w-full uppercase bg-[#262626] px-10 py-4 flex justify-between items-center">
+    <div className="z-50 uppercase bg-[#262626] px-10 py-4 flex justify-between items-center">
       <Link to="/" className={`flex flex-col items-center gap-1 ${getPath === "/" ? "text-yellow-600" : ""}`}>
         { getPath === "/" ? (
           <svg width="24" height="24">
