@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: synthwave --default;
+}
+@theme {
+  --font-roboto: "Roboto", sans-serif;
+  --color-purple-1000: #240939;
+}
+* {
+  @apply select-none;
+}
+.neumorphic-purple {
+  @apply bg-purple-1000;
+  box-shadow:  5px 5px 8px #160522,
+              -5px -5px 8px #320d50;
+}
