@@ -1,17 +1,23 @@
-const BannerAds = () => {
-  const baseUrl =  import.meta.env.VITE_BASE_URL as string
+const BannerAds = ({
+  debugOnly = true,
+}: Readonly<{
+  debugOnly?: boolean;
+}>) => {
+  if((import.meta.env.VITE_BASE_URL as string).includes("localhost")){
+    return (
+      <div className="text-center">Ad Here</div>
+    );
+  }
 
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-expect-error */}
+      {/* @ts-ignore */}
       <adsgram-task
         data-block-id='task-10982'
-        data-debug={baseUrl.includes("localhost")}
+        data-debug={debugOnly}
         className="task"
       >
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-expect-error */}
+        {/* @ts-ignore */}
       </adsgram-task>
     </>
   )

@@ -6,7 +6,7 @@ const ProfilePage = () => {
   const {user, updateUser} = useAuth()
 
   return (
-    <div className="min-h-dvh bg-[#041218]">
+    <div className="flex-1 bg-[#041218]">
       <ProfileHeader
         user={user}
         updateUser={updateUser}

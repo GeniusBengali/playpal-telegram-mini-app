@@ -17,7 +17,7 @@ const MainLayout = () => {
   return (
     <div className="font-roboto h-dvh flex flex-col">
       <BannerAds />
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 flex flex-col overflow-y-auto">
         <Outlet/>
       </div>
       <BottomNavigation/>

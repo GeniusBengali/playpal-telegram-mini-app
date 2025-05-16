@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import AppRoutes from './routes.tsx'
 import {Toaster} from "sonner";
 import {AuthContextProvider} from "./context/auth-provider.tsx";
+import {AppContextProvider} from "./context/app-provider.tsx";
 // import {init,  backButton, miniApp} from "@telegram-apps/sdk-react";
 //
 //
@@ -25,8 +26,10 @@ import {AuthContextProvider} from "./context/auth-provider.tsx";
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthContextProvider>
-      <Toaster position="top-right" />
-      <RouterProvider router={AppRoutes}/>
+      <AppContextProvider>
+        <Toaster position="top-right" />
+        <RouterProvider router={AppRoutes}/>
+      </AppContextProvider>
     </AuthContextProvider>
   </StrictMode>,
 )

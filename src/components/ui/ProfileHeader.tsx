@@ -4,6 +4,7 @@ import {useState} from "react";
 import {supabase} from "../../lib/supabase/client.ts";
 import type {AppUser} from "../../data-types.ts";
 import {toast} from "sonner";
+import {useApp} from "../../context/app-provider.tsx";
 
 const ProfileHeader = ({
   user,
@@ -12,6 +13,7 @@ const ProfileHeader = ({
   user: AppUser | null;
   updateUser: (data: AppUser) => void;
 }>) => {
+  const {showRewardedAd} = useApp()
   const [balanceVisible, setBalanceVisible] = useState(false)
   const [balanceLoading, setBalanceLoading] = useState(false)
 
@@ -30,18 +32,18 @@ const ProfileHeader = ({
     }
 
     updateUser(data!)
-    
-    // Rewarded interstitial
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    show_9339498().then(() => {
-      // You need to add your user reward function here, which will be executed after the user watches the ad.
-      // For more details, please refer to the detailed instructions.
+
+    showRewardedAd(() =>{
       setBalanceVisible(true)
       setTimeout(() => {
         setBalanceVisible(false)
       }, 3000)
-    })
+    }, ()=> {
+      setBalanceVisible(true)
+      setTimeout(() => {
+        setBalanceVisible(false)
+      }, 3000)
+    });
   }
 
   return (
@@ -53,7 +55,7 @@ const ProfileHeader = ({
         <button className="absolute top-0 right-0 m-2" onClick={async () => {await supabase.auth.signOut()}}>
           <IoLogOutOutline size={24} />
         </button>
-        <img src={user?.picture} alt="avatar" className="size-20 rounded-full object-cover border border-gray-500 p-1" />
+        <img src={user?.picture} alt="avatar" className="size-20 rounded-full object-cover border border-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-border p-1" />
         <div>
           <h6 className="font-roboto font-bold mb-2 text-xl gradient-font">{user?.name}</h6>
           <div className="w-36 h-7 bg-white border border-white rounded-full overflow-hidden relative flex items-center">
