@@ -2,6 +2,7 @@ import {Outlet, useNavigate} from "react-router-dom";
 import BottomNavigation from "../ui/BottomNavigation.tsx";
 import {useAuth} from "../../context/auth-provider.tsx";
 import {AuthState} from "../../data-types.ts";
+import BannerAds from "../ui/BannerAds.tsx";
 
 const MainLayout = () => {
   const {authState} = useAuth();
@@ -15,30 +16,12 @@ const MainLayout = () => {
 
   return (
     <div className="font-roboto h-dvh flex flex-col">
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-expect-error */}
-      <adsgram-task
-        data-block-id='task-10982'
-        data-debug="false"
-        className="task"
-      >
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-expect-error */}
-      </adsgram-task>
+      <BannerAds />
       <div className="flex-1 overflow-y-auto">
         <Outlet/>
       </div>
       <BottomNavigation/>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-expect-error */}
-      <adsgram-task
-        data-block-id='task-10982'
-        data-debug="false"
-        className="task"
-      >
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-expect-error */}
-      </adsgram-task>
+      <BannerAds />
     </div>
   )
 }
