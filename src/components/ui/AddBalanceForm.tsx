@@ -37,7 +37,6 @@ const AddBalanceForm = () => {
     setIsOpen(false)
 
     if(data.status){
-      toast.success("Opening link in browser")
       if(openLink.isAvailable()){
         openLink(data.bkashURL)
       } else {
