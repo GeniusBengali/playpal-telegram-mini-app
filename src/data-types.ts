@@ -1,6 +1,5 @@
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
+// @ts-ignore
 export enum AuthState {
   UNINITIALIZED = "UNINITIALIZED",
   UNAUTHENTICATED = "UNAUTHENTICATED",
@@ -38,6 +37,5 @@ export type Social = {
 
 
 export type DepositForm = {
-  bkash_number: string;
   amount: string;
 }

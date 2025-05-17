@@ -6,22 +6,31 @@ import AppRoutes from './routes.tsx'
 import {Toaster} from "sonner";
 import {AuthContextProvider} from "./context/auth-provider.tsx";
 import {AppContextProvider} from "./context/app-provider.tsx";
-// import {init,  backButton, miniApp} from "@telegram-apps/sdk-react";
-//
-//
-// init()
-// if(miniApp.mountSync.isAvailable()){
-//   miniApp.mountSync()
-// }
-//
-// if (miniApp.ready.isAvailable()) {
-//   miniApp.ready();
-// }
-//
-// if(backButton.mount.isAvailable()){
-//   backButton.mount()
-// }
+import {addToHomeScreen, backButton, checkHomeScreenStatus, init} from "@telegram-apps/sdk-react";
 
+// const teleWebApp = window.Telegram.WebApp
+
+if(import.meta.env.PROD){
+  init()
+  backButton.mount()
+  if(checkHomeScreenStatus.isAvailable()){
+    checkHomeScreenStatus().then(status => {
+      if(status == "missed"){
+        addToHomeScreen();
+      }
+    })
+  }
+
+  /*teleWebApp.setBackgroundColor("#262626")
+  teleWebApp.enableClosingConfirmation()
+  // @ts-ignore
+  teleWebApp.checkHomeScreenStatus((status: "unsupported"|"unknown"|"added"|"missed")=> {
+    if(status == "missed"){
+      // @ts-ignore
+      teleWebApp.addToHomeScreen()
+    }
+  })*/
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

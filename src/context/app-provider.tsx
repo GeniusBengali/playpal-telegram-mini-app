@@ -18,30 +18,30 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
   const debugOnly = (import.meta.env.VITE_BASE_URL as string).includes("localhost");
 
   useEffect(() => {
-
-
-    /*
-    This value is decoded as follows:
-    - show automatically 2 ads
-      within 0.1 hours (6 minutes)
-      with a 30-second interval between them
-      and a 5-second delay before the first one is shown.
-      The last digit, 0, means that the session will be saved when you navigate between pages.
-      If you set the last digit as 1, then at any transition between pages,
-      the session will be reset, and the ads will start again.
-    */
-    // In-App Interstitial
-    // @ts-ignore
-    show_9339498({
-      type: 'inApp',
-      inAppSettings: {
-        frequency: 2,
-        capping: 0.1,
-        interval: 30,
-        timeout: 5,
-        everyPage: false
-      }
-    })
+    if(!debugOnly){
+      /*
+        This value is decoded as follows:
+        - show automatically 2 ads
+          within 0.1 hours (6 minutes)
+          with a 30-second interval between them
+          and a 5-second delay before the first one is shown.
+          The last digit, 0, means that the session will be saved when you navigate between pages.
+          If you set the last digit as 1, then at any transition between pages,
+          the session will be reset, and the ads will start again.
+      */
+      // In-App Interstitial
+      // @ts-ignore
+      show_9339498({
+        type: 'inApp',
+        inAppSettings: {
+          frequency: 2,
+          capping: 0.1,
+          interval: 120,
+          timeout: 30,
+          everyPage: false
+        }
+      })
+    }
 
     setAdsGramRewardedAdController(() => {
       // @ts-ignore
@@ -55,6 +55,10 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
   }, [])
 
   const showRewardedAd = (onClose: () => void, onError: () => void) => {
+    if(debugOnly){
+      onClose()
+      return
+    }
     adsGramRewardedAdController
       .show()
       .then((result: AdsGramShowPromiseResult) => {
@@ -77,6 +81,10 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
       })
   }
   const showInterstitialAd = (onClose: () => void, onError: () => void) => {
+    if(debugOnly){
+      onClose()
+      return
+    }
     adsGramInterstitialAdController
       .show()
       .then((result: AdsGramShowPromiseResult) => {

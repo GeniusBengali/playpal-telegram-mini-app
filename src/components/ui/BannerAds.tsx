@@ -3,7 +3,7 @@ const BannerAds = ({
 }: Readonly<{
   debugOnly?: boolean;
 }>) => {
-  if((import.meta.env.VITE_BASE_URL as string).includes("localhost")){
+  if(import.meta.env.DEV){
     return (
       <div className="text-center">Ad Here</div>
     );
