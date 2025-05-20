@@ -9,15 +9,19 @@ const MainLayout = () => {
   const navigate = useNavigate()
 
   if(authState == AuthState.UNAUTHENTICATED){
-    navigate("/auth/sign-in", {
-      replace: true
-    })
+    if(import.meta.env.PROD){
+      navigate("/auth/sign-in", {
+        replace: true
+      })
+    }
   }
+
+
 
   return (
     <div className="font-roboto h-dvh flex flex-col">
       <BannerAds />
-      <div className="flex-1 flex flex-col overflow-y-auto">
+      <div className="flex-1 flex flex-col overflow-y-auto app-gradient-background">
         <Outlet/>
       </div>
       <BottomNavigation/>

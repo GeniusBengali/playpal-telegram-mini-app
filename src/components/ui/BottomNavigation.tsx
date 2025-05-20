@@ -25,7 +25,7 @@ const BottomNavigation = () => {
         ) : (
           <IoHome size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/" ? "gradient-font" : ""}`}>HOME</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/" ? "app-gradient-font" : ""}`}>HOME</h6>
       </Link>
       <Link to="/games" className={`flex flex-col items-center gap-1 ${getPath === "/games" ? "text-yellow-600" : ""}`}>
         { getPath === "/games" ? (
@@ -43,7 +43,7 @@ const BottomNavigation = () => {
         ) : (
           <GiSwordsPower size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/games" ? "gradient-font" : ""}`}>GAMES</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/games" ? "app-gradient-font" : ""}`}>GAMES</h6>
       </Link>
       <Link to="/topup" className={`flex flex-col items-center gap-1 ${getPath === "/topup" ? "text-yellow-600" : ""}`}>
         { getPath === "/topup" ? (
@@ -61,7 +61,7 @@ const BottomNavigation = () => {
         ) : (
           <IoDiamond size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/topup" ? "gradient-font" : ""}`}>TOPUP</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/topup" ? "app-gradient-font" : ""}`}>TOPUP</h6>
       </Link>
       <Link to="/payout" className={`flex flex-col items-center gap-1 ${getPath === "/payout" ? "text-yellow-600" : ""}`}>
         { getPath === "/payout" ? (
@@ -79,7 +79,7 @@ const BottomNavigation = () => {
         ) : (
           <FaHandHoldingDollar size={24} />
         )}
-        <h6 className={`font-roboto text-xs ${getPath === "/payout" ? "gradient-font" : ""}`}>PAYOUT</h6>
+        <h6 className={`font-roboto text-xs ${getPath === "/payout" ? "app-gradient-font" : ""}`}>PAYOUT</h6>
       </Link>
     </div>
   )

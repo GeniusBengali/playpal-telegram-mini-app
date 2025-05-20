@@ -50,14 +50,13 @@ const ProfileHeader = ({
     <div className="bg-[#00000033] rounded-bl-4xl rounded-br-4xl relative overflow-hidden">
       <div className="bg-[#27C9FF59] rounded-full absolute -top-[50px] -left-[190px] w-[155px] h-[340px] rotate-45 blur-[130px]" />
       <div className="bg-[#FBD13066] rounded-full absolute -bottom-[190px] -right-[140px] w-[155px] h-[340px] -rotate-[16px] blur-[130px]" />
-      {/*<h6 className={`font-roboto capitalize text-center p-2 text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text`}>Profile</h6>*/}
       <div className="flex gap-2 items-end p-4 relative">
         <button className="absolute top-0 right-0 m-2" onClick={async () => {await supabase.auth.signOut()}}>
           <IoLogOutOutline size={24} />
         </button>
-        <img src={user?.picture} alt="avatar" className="size-20 rounded-full object-cover border border-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-border p-1" />
+        <img src={user?.picture} alt="avatar" className="size-20 rounded-full object-cover border border-transparent bg-linear-120 from-[#27C9FF] to-[#d400ff] bg-clip-border p-1" />
         <div>
-          <h6 className="font-roboto font-bold mb-2 text-xl gradient-font">{user?.name}</h6>
+          <h6 className="font-roboto font-bold mb-2 text-xl app-gradient-font">{user?.name}</h6>
           <div className="w-36 h-7 bg-white border border-white rounded-full overflow-hidden relative flex items-center">
             <p className="px-2 text-gray-800">{user?.balance} TK</p>
 

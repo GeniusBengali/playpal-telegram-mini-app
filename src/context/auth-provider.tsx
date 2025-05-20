@@ -5,6 +5,7 @@ import * as React from "react";
 import {supabase} from "../lib/supabase/client.ts";
 import type {OAuthResponse} from "@supabase/supabase-js";
 import {toast} from "sonner";
+import {DummyData} from "../utils/DummyData.ts";
 type AuthContextType = {
   user: null|AppUser;
   session: Session | null;
@@ -46,6 +47,10 @@ export const AuthContextProvider = ({children}: Readonly<{children: React.ReactN
         })
     } else {
       setAuthState(AuthState.UNAUTHENTICATED)
+      if(import.meta.env.DEV){
+        setUser(DummyData.user)
+        return
+      }
       setUser(null)
     }
   }

@@ -22,28 +22,34 @@ const AddBalanceForm = () => {
     }
     setLoading(true)
 
-    const response = await fetch(Constants.DEPOSIT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        amount: form.amount,
-        reference: session?.user.id
-      }),
-    })
-    const data = await response.json()
-    setLoading(false)
-    setIsOpen(false)
+    try {
+      const response = await fetch(Constants.DEPOSIT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: form.amount,
+          reference: session?.user.id
+        }),
+      })
+      const data = await response.json()
+      setLoading(false)
+      setIsOpen(false)
 
-    if(data.status){
-      if(openLink.isAvailable()){
-        openLink(data.bkashURL)
+      if(data.status){
+        if(openLink.isAvailable()){
+          openLink(data.bkashURL)
+        } else {
+          toast.error("Unable to open link, please try install chrome")
+        }
       } else {
-        toast.error("Unable to open link, please try install chrome")
+        toast.error(data.message)
       }
-    } else {
-      toast.error(data.message)
+    } catch (e: any) {
+      setLoading(false)
+      setIsOpen(false)
+      toast.error(e.message)
     }
   }
 

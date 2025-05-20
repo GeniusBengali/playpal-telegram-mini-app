@@ -37,7 +37,7 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
           frequency: 2,
           capping: 0.1,
           interval: 120,
-          timeout: 30,
+          timeout: 90,
           everyPage: false
         }
       })

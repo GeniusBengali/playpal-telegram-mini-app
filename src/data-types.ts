@@ -19,6 +19,7 @@ export type AppUser = {
   extended_daily_limit: number;
   limit_expire: string;
   referrer: Profile;
+  social: Social;
   blocked: boolean;
   note: string;
 }

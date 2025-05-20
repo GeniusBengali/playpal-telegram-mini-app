@@ -47,7 +47,7 @@ const SigninPage = () => {
             <FaGoogle size={24}  />
           </IconContext.Provider>
         </svg>
-        <p className="font-roboto text-xs gradient-font">CONTINUE WITH GOOGLE</p>
+        <p className="font-roboto text-xs app-gradient-font">CONTINUE WITH GOOGLE</p>
       </div>
     </div>
   )

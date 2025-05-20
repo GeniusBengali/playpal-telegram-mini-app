@@ -2,8 +2,19 @@
 @plugin "daisyui" {
   themes: synthwave --default;
 }
+
+@font-face {
+  font-family: "Jersey";
+  src: local("Jersey"),
+  url("./fonts/JerseyM54-aLX9.ttf") format("truetype");
+  font-weight: normal;
+}
+
 @theme {
+  --font-chakra-patch: "Chakra Petch", sans-serif;
   --font-roboto: "Roboto", sans-serif;
+  --font-jersey: "Jersey", sans-serif;
+  --font-share-tech:"Share Tech", sans-serif;
   --color-purple-1000: #240939;
 }
 * {
@@ -14,6 +25,20 @@
   box-shadow:  5px 5px 8px #160522,
               -5px -5px 8px #320d50;
 }
-.gradient-font {
+.app-gradient-font {
   @apply text-transparent bg-gradient-to-tr from-[#27C9FF] to-[#FBD130] bg-clip-text
+}
+.app-gradient-background {
+  background: radial-gradient(circle, rgb(48, 10, 64) 25%, rgba(0, 0, 0) 100%);
+}
+.app-icon-shadow {
+  text-shadow:
+    0 0 0.5rem #fff,
+    0 0 1rem #fff,
+    0 0 1.5rem #fff,
+    0 0 2.5rem #d400ff,
+    0 0 4rem #d400ff,
+    0 0 5.5rem #d400ff,
+    0 0 6rem #d400ff,
+    0 0 9.5rem #d400ff;
 }
