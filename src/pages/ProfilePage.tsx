@@ -3,6 +3,7 @@ import ProfileHeader from "../components/ui/ProfileHeader.tsx";
 import AddBalanceForm from "../components/ui/AddBalanceForm.tsx";
 import {GiSwordsPower} from "react-icons/gi";
 import {IconContext} from "react-icons";
+import spaceShip from "../assets/images/spaceship.png";
 
 const ProfilePage = () => {
   const {user, updateUser} = useAuth()
@@ -17,7 +18,7 @@ const ProfilePage = () => {
         <div className="border rounded-md p-4 flex items-center justify-between mt-4 bg-linear-120 from-black to-purple-900">
           <h1 className="text-2xl text-white app-icon-shadow font-share-tech">Claim Rewards <br/> Today</h1>
           <img
-            src="./src/assets/images/spaceship.png"
+            src={spaceShip}
             alt="space ship"
             className="w-28"
           />
