@@ -33,19 +33,19 @@ const ProfilePage = () => {
 
         <div
           onClick={onClickOfferwall}
-          className="flex justify-stretch gap-2 mt-4 text-xs font-serif text-white capitalize app-icon-shadow text-center"
+          className="flex justify-stretch gap-2 mt-4 text-xs font-serif capitalize app-icon-shadow text-center"
         >
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 aspect-video border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-black to-purple-900">
             <div className="text-[#d6d6d6]"><AppIcon Icon={LuClipboardList} /></div>
-            <h4>Offerwall</h4>
+            <h4 className="text-white">Offerwall</h4>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 aspect-video border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-black to-purple-900">
             <div className="text-[#d6d6d6]"><AppIcon Icon={BiTask} /></div>
-            <h4>Tasks</h4>
+            <h4 className="text-white">Tasks</h4>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 aspect-video border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-black to-purple-900">
             <div className="text-[#d6d6d6]"><AppIcon Icon={PiGameControllerDuotone} /></div>
-            <h4>Matches</h4>
+            <h4 className="text-white">Matches</h4>
           </div>
         </div>
       </div>
