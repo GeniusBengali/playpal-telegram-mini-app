@@ -16,14 +16,14 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col w-full">
+    <div className="flex-1 flex flex-col gap-4 overflow-y-auto">
       <ProfileHeader
         user={user}
         updateUser={updateUser}
       />
       <AddBalanceForm />
-      <div className="flex-1 px-4">
-        <div className="border rounded-md p-4 flex items-center justify-between mt-4 bg-linear-120 from-black to-purple-900">
+      <div className="flex-1 flex flex-col gap-4 px-4">
+        <div className="border rounded-md p-4 flex items-center justify-between bg-linear-120 from-black to-purple-900">
           <h1 className="text-2xl text-white app-icon-shadow font-share-tech">Claim Rewards <br/> Today</h1>
           <img
             src={spaceship}
@@ -34,17 +34,17 @@ const ProfilePage = () => {
 
         <div
           onClick={onClickOfferwall}
-          className="flex justify-stretch gap-2 mt-4 text-xs font-serif capitalize app-icon-shadow text-center"
+          className="flex justify-stretch gap-2 text-xs font-serif capitalize app-icon-shadow text-center"
         >
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-[#161616] to-purple-900">
             <div className="text-[#d6d6d6]"><AppIcon Icon={LuClipboardList} /></div>
             <h4 className="text-white">Offerwall</h4>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-[#161616] to-purple-900">
             <div className="text-[#d6d6d6]"><AppIcon Icon={BiTask} /></div>
             <h4 className="text-white">Tasks</h4>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+          <div className="flex-1 flex flex-col items-center justify-center gap-2 border rounded-md p-3 bg-linear-120 from-[#161616] to-purple-900">
             <div className="text-[#d6d6d6]"><AppIcon Icon={PiGameControllerDuotone} /></div>
             <h4 className="text-white">Matches</h4>
           </div>

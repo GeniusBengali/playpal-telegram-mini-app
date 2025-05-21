@@ -2,14 +2,13 @@ import {useAuth} from "../context/auth-provider.tsx";
 import {IconContext} from "react-icons";
 import {FaGoogle} from "react-icons/fa6";
 import {toast} from "sonner";
-import {useState} from "react";
-import Loading from "../components/ui/Loading.tsx";
 import {AuthState} from "../data-types.ts";
 import {useNavigate} from "react-router-dom";
+import {useApp} from "../context/app-provider.tsx";
 
 const SigninPage = () => {
   const {signInWithGoogleGoogle, authState} = useAuth()
-  const [isLoading, setIsLoading] = useState(false)
+  const {isLoadings, setLoadings} = useApp()
   const navigate = useNavigate()
 
   if(authState == AuthState.AUTHENTICATED){
@@ -19,10 +18,10 @@ const SigninPage = () => {
   }
 
   const onSignInWithGoogle = async () => {
-    if(isLoading) return
-    setIsLoading(true)
+    if(isLoadings) return
+    setLoadings(true)
     const {error} = await signInWithGoogleGoogle()
-    setIsLoading(false)
+    setLoadings(false)
     if(error){
       toast.error(error.message)
     }
@@ -30,9 +29,7 @@ const SigninPage = () => {
 
   return (
     <div className={`h-dvh w-dvw bg-purple-1000 flex flex-col items-center justify-end`}>
-      {isLoading && <Loading/>}
-      <div className="w-full flex-1">
-      </div>
+      <div className="w-full flex-1"></div>
       <div
         onClick={onSignInWithGoogle}
         className="flex gap-2 items-center py-2 px-4 m-4 cursor-pointer rounded-md neumorphic-purple">

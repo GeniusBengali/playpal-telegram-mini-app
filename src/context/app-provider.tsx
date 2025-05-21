@@ -1,20 +1,33 @@
 import {createContext, use, useEffect, useState} from "react";
 import * as React from "react";
 import type {AdsGramShowPromiseResult} from "../utils/AdsGramShowPromiseResult.ts";
+import type {Tables} from "../lib/supabase/types.ts";
+import type {PostgrestError} from "@supabase/supabase-js";
+import {supabase} from "../lib/supabase/client.ts";
 
 type AppContextType = {
   showRewardedAd: (onClose: () => void, onError: () => void) => void;
   showInterstitialAd: (onClose: () => void, onError: () => void) => void;
+  isLoadings: boolean;
+  setLoadings: (value: boolean) => void;
+  getGames: (games: Tables<"games">[], error: PostgrestError|null) => void;
 }
 
 const AppProvider = createContext<AppContextType>({
   showRewardedAd: () => {},
   showInterstitialAd: () => {},
+  isLoadings: false,
+  setLoadings: () => {},
+  getGames: () => {},
 })
 
 export const AppContextProvider = ({children}: Readonly<{children: React.ReactNode}>) => {
   const [adsGramRewardedAdController, setAdsGramRewardedAdController] = useState<any>(null)
   const [adsGramInterstitialAdController, setAdsGramInterstitialAdController] = useState<any>(null)
+  const [isLoadings, setLoadings] = useState(false)
+  const [_games, setGames] = useState<Tables<"games">[]>([])
+
+
   const isDev = import.meta.env.DEV
 
   const preventContext = (event: Event) => event.preventDefault()
@@ -119,8 +132,34 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
       })
   }
 
+  const getGames = (games: Tables<"games">[], error: PostgrestError) => {
+    if(_games.length > 0){
+      games(_games)
+    } else {
+      setLoadings(true)
+      supabase.from("games")
+        .select("id, icon, thumbnail, title, mode")
+        .order("sort", {ascending: true})
+        .eq("visible", true)
+        .then(({data, _error}) => {
+          setLoadings(false)
+          if(_error){
+            error(_error)
+            return
+          }
+
+          const modifiedGame = data.map(item => ({
+            ...item,
+            thumbnail: `https://nthlryuqjkkqesxdlzva.supabase.co/storage/v1/object/public/app/${item.thumbnail}`,
+            icon: `https://nthlryuqjkkqesxdlzva.supabase.co/storage/v1/object/public/app/${item.icon}`
+          }))
+          setGames(modifiedGame)
+          games(modifiedGame)
+        })
+    }
+  }
   return (
-    <AppProvider value={{ showRewardedAd, showInterstitialAd }}>
+    <AppProvider value={{ showRewardedAd, showInterstitialAd, isLoadings, setLoadings, getGames }}>
       {children}
     </AppProvider>
   )

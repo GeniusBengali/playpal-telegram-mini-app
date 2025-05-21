@@ -3,9 +3,12 @@ import BottomNavigation from "../ui/BottomNavigation.tsx";
 import {useAuth} from "../../context/auth-provider.tsx";
 import {AuthState} from "../../data-types.ts";
 import BannerAds from "../ui/BannerAds.tsx";
+import {useApp} from "../../context/app-provider.tsx";
+import Loading from "../ui/Loading.tsx";
 
 const MainLayout = () => {
   const {authState} = useAuth();
+  const {isLoadings} = useApp();
   const navigate = useNavigate()
 
   if(authState == AuthState.UNAUTHENTICATED){
@@ -18,6 +21,7 @@ const MainLayout = () => {
 
   return (
     <div className="font-roboto h-dvh flex flex-col">
+      <Loading isLoading={isLoadings} />
       <BannerAds />
       <div className="flex-1 mb-16 flex flex-col overflow-y-auto app-gradient-background">
         <Outlet/>
