@@ -8,11 +8,14 @@ import { LuClipboardList } from "react-icons/lu";
 import {toast} from "sonner";
 import {useEffect} from "react";
 import {backButton} from "@telegram-apps/sdk-react";
+import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 
 
 
 const ProfilePage = () => {
   const {user, updateUser} = useAuth()
+
+  useTelegramBackButton(false)
 
   const onClickOfferwall = () => {
     toast.info("Coming soon")

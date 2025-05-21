@@ -1,19 +1,7 @@
-import {useEffect} from "react";
-import {backButton} from "@telegram-apps/sdk-react";
-import {useNavigate} from "react-router-dom";
+import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 
 const TopupPage = () => {
-  const navigation = useNavigate()
-  useEffect(() => {
-    if(import.meta.env.PROD){
-      if(!backButton.isVisible()){
-        backButton.show()
-      }
-      backButton.onClick(() => {
-        navigation(-1)
-      })
-    }
-  }, []);
+  useTelegramBackButton(true)
   return (
     <div>TopupPage</div>
   )

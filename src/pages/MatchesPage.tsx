@@ -1,21 +1,10 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect} from "react";
-import {backButton} from "@telegram-apps/sdk-react";
+import {useParams} from "react-router-dom";
+import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 
 const MatchesPage = () => {
   const {gameId} = useParams()
-  const navigation = useNavigate()
-  useEffect(() => {
-    if(import.meta.env.PROD){
-      if(!backButton.isVisible()){
-        backButton.show()
-      }
-      backButton.onClick(() => {
-        navigation(-1)
-      })
-    }
-  }, []);
 
+  useTelegramBackButton(true)
   return (
     <>
       <h1>Matches Page</h1>

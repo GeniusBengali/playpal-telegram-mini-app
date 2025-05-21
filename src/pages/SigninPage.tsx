@@ -5,8 +5,7 @@ import {toast} from "sonner";
 import {AuthState} from "../data-types.ts";
 import {useNavigate} from "react-router-dom";
 import {useApp} from "../context/app-provider.tsx";
-import {useEffect} from "react";
-import {backButton} from "@telegram-apps/sdk-react";
+import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 
 const SigninPage = () => {
   const {signInWithGoogleGoogle, authState} = useAuth()
@@ -29,13 +28,7 @@ const SigninPage = () => {
     }
   }
 
-  useEffect(() => {
-    if(import.meta.env.PROD){
-      if(backButton.isVisible()){
-        backButton.hide()
-      }
-    }
-  }, []);
+  useTelegramBackButton(false)
 
   return (
     <div className={`h-dvh w-dvw bg-purple-1000 flex flex-col items-center justify-end`}>

@@ -2,24 +2,16 @@ import {useEffect, useState} from "react";
 import {toast} from "sonner";
 import {useApp} from "../context/app-provider.tsx";
 import type {Game} from "../data-types.ts";
-import {Link, useNavigate} from "react-router-dom";
-import {backButton} from "@telegram-apps/sdk-react";
+import {Link} from "react-router-dom";
+import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 
 const GamesPage = () => {
-  const navigation = useNavigate()
   const [games, setGames] = useState<Game[]>([])
   const {getGames} = useApp();
 
-  useEffect(() => {
-    if(import.meta.env.PROD){
-      if(!backButton.isVisible()){
-        backButton.show()
-      }
-      backButton.onClick(() => {
-        navigation(-1)
-      })
-    }
+  useTelegramBackButton(true)
 
+  useEffect(() => {
     getGames(
       data => setGames(data),
       error => toast.error(error?.message)
