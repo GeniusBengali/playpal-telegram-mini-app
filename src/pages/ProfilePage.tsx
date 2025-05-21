@@ -1,12 +1,19 @@
 import {useAuth} from "../context/auth-provider.tsx";
 import ProfileHeader from "../components/ui/ProfileHeader.tsx";
 import AddBalanceForm from "../components/ui/AddBalanceForm.tsx";
-import {GiSwordsPower} from "react-icons/gi";
-import {IconContext} from "react-icons";
-import spaceShip from "../assets/images/spaceship.png";
+import spaceship from "../assets/images/spaceship.png";
+import {PiGameControllerDuotone} from "react-icons/pi";
+import {AppIcon} from "../components/ui/AppIcon.tsx";
+import {BiTask} from "react-icons/bi";
+import { LuClipboardList } from "react-icons/lu";
+import {toast} from "sonner";
 
 const ProfilePage = () => {
   const {user, updateUser} = useAuth()
+
+  const onClickOfferwall = () => {
+    toast.info("Coming soon")
+  }
 
   return (
     <div className="flex-1 flex flex-col w-full">
@@ -18,64 +25,27 @@ const ProfilePage = () => {
         <div className="border rounded-md p-4 flex items-center justify-between mt-4 bg-linear-120 from-black to-purple-900">
           <h1 className="text-2xl text-white app-icon-shadow font-share-tech">Claim Rewards <br/> Today</h1>
           <img
-            src={spaceShip}
+            src={spaceship}
             alt="space ship"
             className="w-28"
           />
         </div>
 
-        <div className="flex justify-stretch gap-2 mt-4">
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 aspect-video font-serif text-xs border rounded-md p-3 bg-linear-120 from-black to-purple-900">
-            <svg width="36" height="36" viewBox="0 0 36 36">
-              <defs>
-                <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#00ffff" />
-                  <stop offset="100%" stopColor="#d400ff" />
-                </linearGradient>
-
-                <filter id="multiGlow" x="-100%" y="-100%" width="300%" height="300%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="1" flood-color="#fff" flood-opacity="1" />
-                  <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#fff" flood-opacity="1" />
-                  <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#00ffff" flood-opacity="1" />
-                </filter>
-              </defs>
-
-              <g filter="url(#multiGlow)">
-                <IconContext.Provider value={{ attr: { fill: "url(#neonGradient)" } }}>
-                  <GiSwordsPower size={36} />
-                </IconContext.Provider>
-              </g>
-            </svg>
-
-            <h4 className=" uppercase text-[#00ffff]">Offerwall</h4>
+        <div
+          onClick={onClickOfferwall}
+          className="flex justify-stretch gap-2 mt-4 text-xs font-serif text-white app-icon-shadow text-center"
+        >
+          <div className="flex-1 flex flex-col items-center justify-center items-center gap-2 aspect-video border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+            <div className="text-[#d6d6d6]"><AppIcon Icon={LuClipboardList} /></div>
+            <h4>Offerwall</h4>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 aspect-video font-serif text-xs border rounded-md p-3 bg-linear-120 from-black to-purple-900">
-            <GiSwordsPower size={36} className="text-[#00ffff]" />
-            <h4 className=" uppercase text-[#00ffff]">Offerwall</h4>
+          <div className="flex-1 flex flex-col items-center justify-center items-center gap-2 aspect-video border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+            <div className="text-[#d6d6d6]"><AppIcon Icon={BiTask} /></div>
+            <h4>TASKS</h4>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-2 aspect-video font-serif text-xs border rounded-md p-3 bg-linear-120 from-black to-purple-900">
-            <svg width="36" height="36">
-              <defs>
-                <linearGradient id="neonGradient" gradientTransform="rotate(45)">
-                  <stop offset="0%" stopColor="#00ffff" />
-                  <stop offset="100%" stopColor="#d400ff" />
-                </linearGradient>
-                <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <g filter="url(#neonGlow)">
-                <IconContext.Provider value={{ attr: { fill: "url(#neonGradient)" } }}>
-                  <GiSwordsPower size={36} />
-                </IconContext.Provider>
-              </g>
-            </svg>
-            <h4 className=" uppercase text-[#00ffff]">Offerwall</h4>
+          <div className="flex-1 flex flex-col items-center justify-center items-center gap-2 aspect-video border rounded-md p-3 bg-linear-120 from-black to-purple-900">
+            <div className="text-[#d6d6d6]"><AppIcon Icon={PiGameControllerDuotone} /></div>
+            <h4>MATCHES</h4>
           </div>
         </div>
       </div>

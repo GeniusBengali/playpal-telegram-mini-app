@@ -9,11 +9,9 @@ const MainLayout = () => {
   const navigate = useNavigate()
 
   if(authState == AuthState.UNAUTHENTICATED){
-    if(import.meta.env.PROD){
-      navigate("/auth/sign-in", {
-        replace: true
-      })
-    }
+    navigate("/auth/sign-in", {
+      replace: true
+    })
   }
 
 

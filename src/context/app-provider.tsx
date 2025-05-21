@@ -15,10 +15,10 @@ const AppProvider = createContext<AppContextType>({
 export const AppContextProvider = ({children}: Readonly<{children: React.ReactNode}>) => {
   const [adsGramRewardedAdController, setAdsGramRewardedAdController] = useState<any>(null)
   const [adsGramInterstitialAdController, setAdsGramInterstitialAdController] = useState<any>(null)
-  const debugOnly = (import.meta.env.VITE_BASE_URL as string).includes("localhost");
+  const isDev = import.meta.env.DEV
 
   useEffect(() => {
-    if(!debugOnly){
+    if(import.meta.env.PROD) {
       /*
         This value is decoded as follows:
         - show automatically 2 ads
@@ -41,21 +41,21 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
           everyPage: false
         }
       })
+
+      setAdsGramRewardedAdController(() => {
+        // @ts-ignore
+        return window.Adsgram.init({blockId: "10980", debug: isDev});
+      })
+
+      setAdsGramInterstitialAdController(() => {
+        // @ts-ignore
+        return window.Adsgram.init({blockId: "int-10981", debug: isDev});
+      })
     }
-
-    setAdsGramRewardedAdController(() => {
-      // @ts-ignore
-      return window.Adsgram.init({ blockId: "10980", debug: debugOnly });
-    })
-
-    setAdsGramInterstitialAdController(() => {
-      // @ts-ignore
-      return window.Adsgram.init({ blockId: "int-10981", debug: debugOnly });
-    })
   }, [])
 
   const showRewardedAd = (onClose: () => void, onError: () => void) => {
-    if(debugOnly){
+    if(isDev){
       onClose()
       return
     }
@@ -81,7 +81,7 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
       })
   }
   const showInterstitialAd = (onClose: () => void, onError: () => void) => {
-    if(debugOnly){
+    if(isDev){
       onClose()
       return
     }
