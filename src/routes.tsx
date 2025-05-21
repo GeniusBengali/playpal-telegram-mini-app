@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 import GuestLayout from "./components/layouts/GuestLayout.tsx";
 import SigninPage from "./pages/SigninPage.tsx";
 import SignupPage from "./pages/SignupPage.tsx";
+import MatchesPage from "./pages/MatchesPage.tsx";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "games",
         element: <GamesPage />,
+      },
+      {
+        path: "games/:gameId",
+        element: <MatchesPage />
       },
       {
         path: "topup",

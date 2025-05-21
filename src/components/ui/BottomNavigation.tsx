@@ -10,34 +10,39 @@ const BottomNavigation = () => {
     Icon: IconType;
     path: string;
     label: string;
+    childPath: string[];
   }[] = [
     {
       Icon: IoHome,
       path: "/",
-      label: "Home"
+      label: "Home",
+      childPath: ["/"]
     },
     {
       Icon: GiSwordsPower,
       path: "/games",
-      label: "Games"
+      label: "Games",
+      childPath: ["/games"]
     },
     {
       Icon: IoDiamond,
       path: "/topup",
-      label: "Topup"
+      label: "Topup",
+      childPath: ["/topup"]
     },
     {
       Icon: FaHandHoldingDollar,
       path: "/payout",
-      label: "Payout"
+      label: "Payout",
+      childPath: ["/payout"]
     },
   ]
 
   return (
     <div className="dock uppercase">
       {links.map((link, index) => (
-        <Link to={link.path} className={`${getPath === link.path ? "after:from-blue-600 after:to-yellow-300 after:bg-linear-120 app-gradient-font dock-active" : ""}`} key={index}>
-          {getPath === link.path ? (
+        <Link to={link.path} className={`${link.childPath.includes(getPath) ? "after:from-blue-600 after:to-yellow-300 after:bg-linear-120 app-gradient-font dock-active" : ""}`} key={index}>
+          {link.childPath.includes(getPath) ? (
             <svg width="24" height="24">
               <defs>
                 <linearGradient id="myGradient" gradientTransform="rotate(0)">

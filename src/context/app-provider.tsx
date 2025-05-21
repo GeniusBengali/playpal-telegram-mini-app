@@ -1,9 +1,8 @@
-import {createContext, use, useEffect, useState} from "react";
-import * as React from "react";
 import type {AdsGramShowPromiseResult} from "../utils/AdsGramShowPromiseResult.ts";
 import type {PostgrestError} from "@supabase/supabase-js";
-import {supabase} from "../lib/supabase/client.ts";
 import type {Game} from "../data-types.ts";
+import {type ReactNode, createContext, useEffect, useState, useContext} from "react";
+import {supabase} from "../lib/supabase/client.ts";
 
 type AppContextType = {
   showRewardedAd: (onClose: () => void, onError: () => void) => void;
@@ -21,7 +20,7 @@ const AppProvider = createContext<AppContextType>({
   getGames: () => {},
 })
 
-export const AppContextProvider = ({children}: Readonly<{children: React.ReactNode}>) => {
+export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) => {
   const [adsGramRewardedAdController, setAdsGramRewardedAdController] = useState<any>(null)
   const [adsGramInterstitialAdController, setAdsGramInterstitialAdController] = useState<any>(null)
   const [isLoadings, setLoadings] = useState(false)
@@ -166,4 +165,5 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
   )
 }
 
-export const useApp = () => use(AppProvider);
+// eslint-disable-next-line react-refresh/only-export-components
+export const useApp = () => useContext(AppProvider);

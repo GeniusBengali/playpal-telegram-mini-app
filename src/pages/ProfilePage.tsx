@@ -1,12 +1,13 @@
 import {useAuth} from "../context/auth-provider.tsx";
 import ProfileHeader from "../components/ui/ProfileHeader.tsx";
 import AddBalanceForm from "../components/ui/AddBalanceForm.tsx";
-import spaceship from "../assets/images/spaceship.png";
 import {PiGameControllerDuotone} from "react-icons/pi";
 import {AppIcon} from "../components/ui/AppIcon.tsx";
 import {BiTask} from "react-icons/bi";
 import { LuClipboardList } from "react-icons/lu";
 import {toast} from "sonner";
+
+
 
 const ProfilePage = () => {
   const {user, updateUser} = useAuth()
@@ -16,7 +17,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col gap-4 overflow-y-auto">
+    <div className="flex-1 flex flex-col gap-4">
       <ProfileHeader
         user={user}
         updateUser={updateUser}
@@ -25,11 +26,7 @@ const ProfilePage = () => {
       <div className="flex-1 flex flex-col gap-4 px-4">
         <div className="border rounded-md p-4 flex items-center justify-between bg-linear-120 from-black to-purple-900">
           <h1 className="text-2xl text-white app-icon-shadow font-share-tech">Claim Rewards <br/> Today</h1>
-          <img
-            src={spaceship}
-            alt="space ship"
-            className="w-28"
-          />
+          <div className="bg-[url('/assets/images/spaceship.webp')] bg-center bg-cover h-14 w-24"></div>
         </div>
 
         <div
