@@ -6,6 +6,8 @@ import {AppIcon} from "../components/ui/AppIcon.tsx";
 import {BiTask} from "react-icons/bi";
 import { LuClipboardList } from "react-icons/lu";
 import {toast} from "sonner";
+import {useEffect} from "react";
+import {backButton} from "@telegram-apps/sdk-react";
 
 
 
@@ -15,6 +17,14 @@ const ProfilePage = () => {
   const onClickOfferwall = () => {
     toast.info("Coming soon")
   }
+
+  useEffect(() => {
+    if(import.meta.env.PROD){
+      if(backButton.isVisible()){
+        backButton.hide()
+      }
+    }
+  }, []);
 
   return (
     <div className="flex-1 flex flex-col gap-4">
