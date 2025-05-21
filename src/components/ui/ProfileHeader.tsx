@@ -70,7 +70,7 @@ const ProfileHeader = ({
                   <div className="absolute size-6 border-2 p-2 border-dashed border-white top-1/2 left-1/2 -translate-1/2 rounded-full bg-yellow-500 animate-spin"></div>
                 )}
               </div>
-              <p className="font-roboto text-sm">Playpal</p>
+              <p className="font-play uppercase text-sm">Playpal</p>
             </div>
           </div>
         </div>

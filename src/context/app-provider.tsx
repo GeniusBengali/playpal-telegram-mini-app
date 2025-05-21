@@ -17,8 +17,20 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
   const [adsGramInterstitialAdController, setAdsGramInterstitialAdController] = useState<any>(null)
   const isDev = import.meta.env.DEV
 
+  const preventContext = (event: Event) => event.preventDefault()
+  const preventDevTools = (event: KeyboardEvent) => {
+    if(event.key == "F12" || (event.ctrlKey && event.key == "I")){
+      event.preventDefault()
+    }
+  }
+
   useEffect(() => {
-    if(import.meta.env.PROD) {
+    if(!isDev) {
+      window.addEventListener("contextmenu", preventContext)
+      window.addEventListener("keydown", preventDevTools)
+    }
+
+    if(!isDev) {
       /*
         This value is decoded as follows:
         - show automatically 2 ads
@@ -51,6 +63,14 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
         // @ts-ignore
         return window.Adsgram.init({blockId: "int-10981", debug: isDev});
       })
+    }
+
+
+    return () => {
+      if(!isDev){
+        window.removeEventListener("contextmenu", preventContext)
+        window.removeEventListener("keydown", preventDevTools)
+      }
     }
   }, [])
 

@@ -19,11 +19,10 @@ const MainLayout = () => {
   return (
     <div className="font-roboto h-dvh flex flex-col">
       <BannerAds />
-      <div className="flex-1 flex flex-col overflow-y-auto app-gradient-background">
+      <div className="flex-1 mb-16 flex flex-col overflow-y-auto app-gradient-background">
         <Outlet/>
       </div>
       <BottomNavigation/>
-      <BannerAds />
     </div>
   )
 }

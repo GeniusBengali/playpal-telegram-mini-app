@@ -21,6 +21,7 @@ const ProfilePage = () => {
         user={user}
         updateUser={updateUser}
       />
+      <AddBalanceForm />
       <div className="flex-1 px-4">
         <div className="border rounded-md p-4 flex items-center justify-between mt-4 bg-linear-120 from-black to-purple-900">
           <h1 className="text-2xl text-white app-icon-shadow font-share-tech">Claim Rewards <br/> Today</h1>
@@ -49,7 +50,6 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-      <AddBalanceForm />
     </div>
   )
 }
