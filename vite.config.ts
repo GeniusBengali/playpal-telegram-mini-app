@@ -10,6 +10,15 @@ export default defineConfig({
   ],
   server: {
     host: "0.0.0.0"
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'supabase': ['@supabase/supabase-js']
+        }
+      }
+    }
   }
-  // base: "/playpal-telegram-mini-app/"
 })

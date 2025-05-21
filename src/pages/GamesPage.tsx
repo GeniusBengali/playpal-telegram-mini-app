@@ -1,18 +1,17 @@
 import {useEffect, useState} from "react";
 import {toast} from "sonner";
-import type {Tables} from "../lib/supabase/types.ts";
 import {useApp} from "../context/app-provider.tsx";
+import type {Game} from "../data-types.ts";
 
 const GamesPage = () => {
-  const [games, setGames] = useState<Tables<'games'>[]>()
+  const [games, setGames] = useState<Game[]>([])
   const {getGames} = useApp();
 
   useEffect(() => {
-    getGames((_games) => {
-      setGames(_games)
-    }, (error) => {
-      toast.error(error.message)
-    })
+    getGames(
+      data => setGames(data),
+      error => toast.error(error?.message)
+    )
   }, []);
 
   return (

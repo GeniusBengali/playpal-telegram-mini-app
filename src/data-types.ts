@@ -1,10 +1,11 @@
+import type {Tables} from "./lib/supabase/types.ts";
 
-// @ts-ignore
-export enum AuthState {
-  UNINITIALIZED = "UNINITIALIZED",
-  UNAUTHENTICATED = "UNAUTHENTICATED",
-  AUTHENTICATED = "AUTHENTICATED"
+export const AuthState =  {
+  UNINITIALIZED:"UNINITIALIZED",
+  UNAUTHENTICATED: "UNAUTHENTICATED",
+  AUTHENTICATED:"AUTHENTICATED"
 }
+export type AuthState = (typeof AuthState)[keyof typeof AuthState];
 
 // export type AuthState = typeof AuthState[keyof typeof AuthState];
 export type AppUser = {
@@ -40,3 +41,5 @@ export type Social = {
 export type DepositForm = {
   amount: string;
 }
+
+export type Game = Omit<Tables<"games">, "admin_id"|"updated_at"|"created_at"|"visible"|"sort">

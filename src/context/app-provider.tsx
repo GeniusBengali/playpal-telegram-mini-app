@@ -1,16 +1,16 @@
 import {createContext, use, useEffect, useState} from "react";
 import * as React from "react";
 import type {AdsGramShowPromiseResult} from "../utils/AdsGramShowPromiseResult.ts";
-import type {Tables} from "../lib/supabase/types.ts";
 import type {PostgrestError} from "@supabase/supabase-js";
 import {supabase} from "../lib/supabase/client.ts";
+import type {Game} from "../data-types.ts";
 
 type AppContextType = {
   showRewardedAd: (onClose: () => void, onError: () => void) => void;
   showInterstitialAd: (onClose: () => void, onError: () => void) => void;
   isLoadings: boolean;
   setLoadings: (value: boolean) => void;
-  getGames: (games: Tables<"games">[], error: PostgrestError|null) => void;
+  getGames: (successCallback: (data: Game[]) => void, errorCallback: (error: PostgrestError|null) => void) => void;
 }
 
 const AppProvider = createContext<AppContextType>({
@@ -25,7 +25,7 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
   const [adsGramRewardedAdController, setAdsGramRewardedAdController] = useState<any>(null)
   const [adsGramInterstitialAdController, setAdsGramInterstitialAdController] = useState<any>(null)
   const [isLoadings, setLoadings] = useState(false)
-  const [_games, setGames] = useState<Tables<"games">[]>([])
+  const [_games, setGames] = useState<Game[]>([])
 
 
   const isDev = import.meta.env.DEV
@@ -132,19 +132,20 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
       })
   }
 
-  const getGames = (games: Tables<"games">[], error: PostgrestError) => {
+  const getGames = (successCallback: (gameArray: Game[]) => void, errorCallback: (errorResponse: PostgrestError|null) => void) => {
     if(_games.length > 0){
-      games(_games)
+      successCallback(_games)
     } else {
       setLoadings(true)
       supabase.from("games")
         .select("id, icon, thumbnail, title, mode")
         .order("sort", {ascending: true})
         .eq("visible", true)
-        .then(({data, _error}) => {
+        .overrideTypes<Game[]>()
+        .then(({data, error}) => {
           setLoadings(false)
-          if(_error){
-            error(_error)
+          if(error){
+            errorCallback(error)
             return
           }
 
@@ -152,9 +153,9 @@ export const AppContextProvider = ({children}: Readonly<{children: React.ReactNo
             ...item,
             thumbnail: `https://nthlryuqjkkqesxdlzva.supabase.co/storage/v1/object/public/app/${item.thumbnail}`,
             icon: `https://nthlryuqjkkqesxdlzva.supabase.co/storage/v1/object/public/app/${item.icon}`
-          }))
+          })) as Game[]
           setGames(modifiedGame)
-          games(modifiedGame)
+          successCallback(modifiedGame)
         })
     }
   }
