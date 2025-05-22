@@ -4,6 +4,7 @@ import type {DailyMatch, Game} from "../../../data-types.ts";
 import {matchTeamLabel} from "../../../utils/matchTeamLabel.ts";
 import {matchPrizepool} from "../../../utils/matchPrizepool.ts";
 import {perScorePrize} from "../../../utils/perScorePrize.ts";
+import {Link} from "react-router-dom";
 
 export const MatchItem = ({
   game,
@@ -14,7 +15,7 @@ export const MatchItem = ({
 }) => {
   return (
     <div className="flex flex-col gap-2 border border-dashed bg-purple-1000 p-2 rounded-sm" key={match.id}>
-      <div className="flex gap-2">
+      <Link to={`/match/${game.id}/${match.id}`} className="flex gap-2">
         <img
           src={game.icon}
           className="size-18 rounded-sm"
@@ -42,7 +43,7 @@ export const MatchItem = ({
             </div>
           </div>
         </div>
-      </div>
+      </Link>
       <div className="flex justify-between items-start uppercase">
         <div className="flex gap-2">
           <div className="border-r pr-2">
@@ -58,7 +59,12 @@ export const MatchItem = ({
             <span>{perScorePrize(match.prizes)}</span>
           </div>
         </div>
-        <button className="self-center btn btn-dash btn-secondary btn-sm">Book Now</button>
+        <Link to={`/join-match/${game.id}/${match.id}`} className="self-center btn btn-dash btn-secondary btn-sm">Book Now</Link>
+      </div>
+      <progress className="progress w-full" value={match.booked!} max={match.match_size!}></progress>
+      <div className="flex justify-between items-center text-xs text-gray-500 text-[10px]">
+        <span>{match.match_size! - match.booked!} SLOTS LEFT</span>
+        <span>{match.booked}/{match.match_size}</span>
       </div>
     </div>
   )
