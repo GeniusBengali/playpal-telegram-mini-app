@@ -13,7 +13,7 @@ export const MatchItem = ({
   match: DailyMatch
 }) => {
   return (
-    <div className="flex flex-col gap-2 bg-purple-1000 p-2 rounded-sm" key={match.id}>
+    <div className="flex flex-col gap-2 border border-dashed bg-purple-1000 p-2 rounded-sm" key={match.id}>
       <div className="flex gap-2">
         <img
           src={game.icon}

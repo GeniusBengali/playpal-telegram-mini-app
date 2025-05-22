@@ -37,7 +37,7 @@ const MatchesPage = () => {
       <h1 className="text-center text-xl uppercase font-play mt-2 app-gradient-font">
         {game?.title} TOURNAMENTS
       </h1>
-      <div className="flex-1 flex flex-col gap-4 overflow-y-auto mx-4 text-xs">
+      <div className="flex-1 flex flex-col gap-2 overflow-y-scroll mx-4 text-xs">
         {matches.map(match => (
           <MatchItem match={match} game={game!} key={match.id} />
         ))}
