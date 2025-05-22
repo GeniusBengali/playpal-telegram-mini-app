@@ -10,6 +10,7 @@ type AppContextType = {
   isLoadings: boolean;
   setLoadings: (value: boolean) => void;
   getGames: (successCallback: (data: Game[]) => void, errorCallback: (error: PostgrestError|null) => void) => void;
+  findGame: (id: string) => Game | null;
 }
 
 const AppProvider = createContext<AppContextType>({
@@ -18,6 +19,7 @@ const AppProvider = createContext<AppContextType>({
   isLoadings: false,
   setLoadings: () => {},
   getGames: () => {},
+  findGame: () => null,
 })
 
 export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) => {
@@ -65,6 +67,9 @@ export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) 
           everyPage: false
         }
       })
+
+      // @ts-ignore
+      window.Sonar.show({ adUnit: "banner" });
 
       setAdsGramRewardedAdController(() => {
         // @ts-ignore
@@ -158,8 +163,12 @@ export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) 
         })
     }
   }
+  const findGame = (id: string) => {
+    return _games.find(game => game.id == id) || null
+  }
+
   return (
-    <AppProvider value={{ showRewardedAd, showInterstitialAd, isLoadings, setLoadings, getGames }}>
+    <AppProvider value={{ showRewardedAd, showInterstitialAd, isLoadings, setLoadings, getGames, findGame }}>
       {children}
     </AppProvider>
   )

@@ -43,3 +43,21 @@ export type DepositForm = {
 }
 
 export type Game = Omit<Tables<"games">, "admin_id"|"updated_at"|"created_at"|"visible"|"sort">
+export type DailyMatch = Omit<Tables<"daily_match">, "infos"|"prizes"> & {
+  infos: MatchInfo[],
+  prizes: MatchPrize[],
+  prizepool: number;
+}
+
+export type MatchInfo = {
+  title: string;
+  value: string;
+}
+
+export type MatchPrize = {
+  position: number;
+  position_prize: number;
+  position_title: string
+  per_score: number;
+  score_prize: number;
+}

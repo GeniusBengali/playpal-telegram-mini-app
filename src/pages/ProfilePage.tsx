@@ -4,12 +4,9 @@ import AddBalanceForm from "../components/ui/AddBalanceForm.tsx";
 import {PiGameControllerDuotone} from "react-icons/pi";
 import {AppIcon} from "../components/ui/AppIcon.tsx";
 import {BiTask} from "react-icons/bi";
-import { LuClipboardList } from "react-icons/lu";
+import {LuClipboardList} from "react-icons/lu";
 import {toast} from "sonner";
-import {useEffect} from "react";
-import {backButton} from "@telegram-apps/sdk-react";
 import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
-
 
 
 const ProfilePage = () => {
@@ -21,14 +18,6 @@ const ProfilePage = () => {
     toast.info("Coming soon")
   }
 
-  useEffect(() => {
-    if(import.meta.env.PROD){
-      if(backButton.isVisible()){
-        backButton.hide()
-      }
-    }
-  }, []);
-
   return (
     <div className="flex-1 flex flex-col gap-4">
       <ProfileHeader
@@ -36,7 +25,7 @@ const ProfilePage = () => {
         updateUser={updateUser}
       />
       <AddBalanceForm />
-      <div className="flex-1 flex flex-col gap-4 px-4">
+      <div className="flex-1 flex flex-col gap-4 px-4 overflow-y-auto">
         <div className="border rounded-md p-4 flex items-center justify-between bg-linear-120 from-black to-purple-900">
           <h1 className="text-2xl text-white app-icon-shadow font-share-tech">Claim Rewards <br/> Today</h1>
           <div className="bg-[url('/assets/images/spaceship.webp')] bg-center bg-cover h-14 w-24"></div>

@@ -21,7 +21,7 @@ const GamesPage = () => {
   return (
     <div className="flex-1 flex flex-col gap-4">
       <h1 className="text-center text-xl uppercase font-play mt-2 app-gradient-font">Games</h1>
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-auto">
         <div className="grid grid-cols-2 gap-2 mx-4 text-xs leading-4">
           {games?.map(game => (
             <Link
