@@ -5,6 +5,7 @@ import type {Game} from "../data-types.ts";
 import {useEffect, useState} from "react";
 import useMatchList from "../components/ui/match/useMatchList.ts";
 import {MatchItem} from "../components/ui/match/MatchItem.tsx";
+import BannerAds from "../components/ui/BannerAds.tsx";
 
 const MatchesPage = () => {
   const {gameId} = useParams()
@@ -38,8 +39,11 @@ const MatchesPage = () => {
         {game?.title} TOURNAMENTS
       </h1>
       <div className="flex-1 flex flex-col gap-3 overflow-y-scroll mx-4 text-xs">
-        {matches.map(match => (
-          <MatchItem match={match} game={game!} key={match.id} />
+        {matches.map((match, index) => (
+          <div className="flex flex-col gap-2" key={match.id}>
+            <MatchItem match={match} game={game!} />
+            {index % 4 == 0 && <BannerAds />}
+          </div>
         ))}
         {!loading && !hasMore && matches.length == 0 && (
           <p className="">No tournament available</p>
