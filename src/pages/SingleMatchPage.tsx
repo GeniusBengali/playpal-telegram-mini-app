@@ -8,10 +8,7 @@ import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
 import MatchPrizepools from "../components/ui/match/MatchPrizepools.tsx";
 import MatchParticipants from "../components/ui/match/MatchParticipants.tsx";
 import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
-import useRealtimeMatchEntrance from "../components/ui/match/useRealtimeMatchEntrance.ts";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {IoCopySharp} from "react-icons/io5";
-import {toast} from "sonner";
+import MatchEntrance from "../components/ui/match/MatchEntrance.tsx";
 
 const SingleMatchPage = () => {
   const navigate = useNavigate()
@@ -21,8 +18,6 @@ const SingleMatchPage = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false)
 
   useTelegramBackButton(true)
-  const {entrance} = useRealtimeMatchEntrance(matchId!)
-
   const {match} = useSingleMatch(matchId!)
 
   useEffect(() => {
@@ -66,24 +61,7 @@ const SingleMatchPage = () => {
                 ))}
               </div>
 
-              {entrance && (
-                <div className="flex flex-col justify-stretch bg-linear-[135deg] from-purple-1000 to-purple-700 rounded-md border border-dashed">
-                  <h1 className="font-bold font-play p-2 uppercase text-center text-sm border-b">Match Entrance</h1>
-                  {entrance.map((data, index)=> (
-                    <CopyToClipboard
-                      onCopy={() => toast.success("Copied")}
-                      text={data.value}
-                      key={index}
-                    >
-                      <div className="flex gap-2 cursor-pointer p-2 w-fit">
-                        <IoCopySharp />
-                        <strong className="font-bold uppercase">{data.title}:</strong>
-                        <span>{data.value}</span>
-                      </div>
-                    </CopyToClipboard>
-                  ))}
-                </div>
-              )}
+              {match.joined && <MatchEntrance matchId={matchId!}/>}
               
               <MatchParticipants
                 teams={match.teams}
