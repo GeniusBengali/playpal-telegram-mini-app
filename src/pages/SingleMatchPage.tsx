@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {useApp} from "../context/app-provider.tsx";
 import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
 import MatchPrizepools from "../components/ui/match/MatchPrizepools.tsx";
+import MatchParticipants from "../components/ui/match/MatchParticipants.tsx";
 
 const SingleMatchPage = () => {
   const navigate = useNavigate()
@@ -31,22 +32,37 @@ const SingleMatchPage = () => {
         scoreTitle={match?.score_title ?? ""}
       />
       <ScrollableComponent title={`${game?.title} ${game?.mode}`}>
-        <div className="flex flex-col gap-2 mx-4 text-xs relative">
+        <div className="flex flex-col gap-2 mx-4 text-xs">
           {game != null && match != null &&
-            <MatchItem
-              game={game}
-              match={match}
-              onPrizepoolClick={() => {
-                setBottomSheetOpen(true)
-              }}
-            >
-              <MatchBookButton
-                gameId={gameId!}
-                userJoined={match.joined!}
+            <>
+              <MatchItem
+                game={game}
+                match={match}
+                onPrizepoolClick={() => {
+                  setBottomSheetOpen(true)
+                }}
+              >
+                <MatchBookButton
+                  gameId={gameId!}
+                  userJoined={match.joined!}
+                  matchSize={match.match_size!}
+                  bookedSize={match.booked!}
+                  matchId={matchId!}/>
+              </MatchItem>
+              <div className="flex flex-wrap gap-2 items-start justify-stretch">
+                {match.infos.map((info, index) => (
+                  <div className="flex-1 min-w-[calc(33.333%-6px)] bg-purple-950 rounded-sm border flex flex-col items-center p-1" key={index}>
+                    <span className="uppercase font-bold">{info.title}</span>
+                    <span>{info.value}</span>
+                  </div>
+                ))}
+              </div>
+              <MatchParticipants
+                teams={match.teams}
+                teamSize={match.team_size!}
                 matchSize={match.match_size!}
-                bookedSize={match.booked!}
-                matchId={matchId!}/>
-            </MatchItem>
+              />
+            </>
           }
         </div>
       </ScrollableComponent>

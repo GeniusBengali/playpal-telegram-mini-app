@@ -63,4 +63,18 @@ export type MatchPrize = {
 }
 
 export type MatchWithParticipants = DailyMatch & {
+  teams: MatchTeam[]
+}
+
+export type MatchPlayer = {
+  "user_id": string;
+  "name": string;
+  "score": number;
+  "reward": number;
+}
+
+export type MatchTeam = {
+  "seat": number;
+  "players": MatchPlayer[],
+  "position": number;
 }
