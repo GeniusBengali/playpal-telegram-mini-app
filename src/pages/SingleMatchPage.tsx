@@ -1,27 +1,27 @@
 import ScrollableComponent from "../components/ui/ScrollableComponent.tsx";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import useSingleMatch from "../components/ui/match/useSingleMatch.ts";
 import {MatchItem} from "../components/ui/match/MatchItem.tsx";
 import {useEffect, useState} from "react";
-import {useApp} from "../context/app-provider.tsx";
 import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
 import MatchPrizepools from "../components/ui/match/MatchPrizepools.tsx";
 import MatchParticipants from "../components/ui/match/MatchParticipants.tsx";
 import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 import MatchEntrance from "../components/ui/match/MatchEntrance.tsx";
+import type {Game} from "../data-types.ts";
 
 const SingleMatchPage = () => {
   const navigate = useNavigate()
-  const {gameId, matchId} = useParams()
-  const {findGame} = useApp()
-  const game = findGame(gameId!)
+  const {state} = useLocation()
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false)
+  const game = state?.game as Game | undefined
 
   useTelegramBackButton(true)
-  const {match} = useSingleMatch(matchId!)
+
+  const {match} = useSingleMatch(state.match)
 
   useEffect(() => {
-    if(game == null){
+    if(state == null){
       navigate(-1)
     }
   }, []);
@@ -46,11 +46,11 @@ const SingleMatchPage = () => {
                 }}
               >
                 <MatchBookButton
-                  gameId={gameId!}
                   userJoined={match.joined!}
                   matchSize={match.match_size!}
                   bookedSize={match.booked!}
-                  matchId={matchId!}/>
+                  game={game}
+                  match={match}/>
               </MatchItem>
               <div className="flex flex-wrap gap-2 items-start justify-stretch">
                 {match.infos.map((info, index) => (
@@ -61,9 +61,10 @@ const SingleMatchPage = () => {
                 ))}
               </div>
 
-              {match.joined && <MatchEntrance matchId={matchId!}/>}
+              {match.joined && <MatchEntrance matchId={match.id!}/>}
               
               <MatchParticipants
+                matchStatus={match.status!}
                 teams={match.teams}
                 teamSize={match.team_size!}
                 matchSize={match.match_size!}

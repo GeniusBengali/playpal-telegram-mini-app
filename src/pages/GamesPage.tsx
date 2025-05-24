@@ -2,15 +2,24 @@ import {useEffect, useState} from "react";
 import {toast} from "sonner";
 import {useApp} from "../context/app-provider.tsx";
 import type {Game} from "../data-types.ts";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 import ScrollableComponent from "../components/ui/ScrollableComponent.tsx";
 
 const GamesPage = () => {
+  const navigate = useNavigate()
   const [games, setGames] = useState<Game[]>([])
   const {getGames} = useApp();
 
   useTelegramBackButton(true)
+
+  const onGameToMatches = (game: Game) => {
+    navigate(`/matches`, {
+      state: {
+        game: game
+      }
+    })
+  }
 
   useEffect(() => {
     getGames(
@@ -24,8 +33,8 @@ const GamesPage = () => {
    <ScrollableComponent title="Games">
      <div className="grid grid-cols-2 gap-2 mx-4 text-xs leading-4">
        {games?.map(game => (
-         <Link
-           to={`/games/${game.id}`}
+         <button
+           onClick={() => onGameToMatches(game)}
            className="flex flex-col rounded-sm overflow-hidden border"
            key={game.id}
          >
@@ -37,7 +46,7 @@ const GamesPage = () => {
                <p className="capitalize font-roboto text-gray-300">{game.mode}</p>
              </div>
            </div>
-         </Link>
+         </button>
        ))}
      </div>
    </ScrollableComponent>

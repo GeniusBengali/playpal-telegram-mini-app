@@ -1,52 +1,55 @@
 import {useEffect, useState} from "react";
 import {useApp} from "../../../context/app-provider.tsx";
 import {supabase} from "../../../lib/supabase/client.ts";
-import type {MatchWithParticipants} from "../../../data-types.ts";
-import {formatCountDown, formatMatchTime} from "../../../utils/formatMatchTime.ts";
+import type {DailyMatch, MatchTeam, MatchWithParticipants} from "../../../data-types.ts";
+import {formatCountDown} from "../../../utils/formatMatchTime.ts";
 
 const useSingleMatch = (
-  matchId: string,
+  matchData: DailyMatch
 ): {
   error: boolean;
-  match: MatchWithParticipants | null;
+  match: MatchWithParticipants;
 } => {
   const {setLoadings} = useApp()
   const [error, setError] = useState(false)
-  const [match, setMatch] = useState<MatchWithParticipants|null>(null)
+  const [match, setMatch] = useState<MatchWithParticipants>(matchData as MatchWithParticipants)
   const [timeDifference, setTimeDifference] = useState<number|null>(null)
 
   useEffect(() => {
     setLoadings(true)
 
-    supabase.from("match_participants")
-      .select("*")
-      .eq("id", matchId)
-      .single<MatchWithParticipants>()
+    supabase.from("match_teams_and_players")
+      .select("seat, position, players")
+      .eq("local_match_id", matchData.id!)
+      .order("seat", {ascending: true})
+      .overrideTypes<MatchTeam[]>()
       .then(({data, error: loadError}) => {
         setLoadings(false)
         if(loadError){
           setError(true)
           return
         }
-        const now = new Date();
-        const startDate = new Date(data.start!)
-        const diffMs = startDate.getTime() - now.getTime();
 
-        const timerCanStart = diffMs > 0 && diffMs < 86400000;
-
-        if(timerCanStart){
-          setTimeDifference(diffMs)
-        } else {
-          setTimeDifference(0)
-        }
-
-        setMatch({
-          ...data!,
-          start: timerCanStart ? formatCountDown(timeDifference!) : formatMatchTime(data.start!),
-        })
+        setMatch(prevState => ({
+          ...prevState,
+          teams: data,
+        }))
       })
 
-  }, [matchId]);
+  }, []);
+
+  useEffect(() => {
+    const now = new Date();
+    const startDate = new Date(matchData.start!)
+    const diffMs = startDate.getTime() - now.getTime();
+    const timerCanStart = diffMs > 0 && diffMs < 86400000;
+
+    if(timerCanStart){
+      setTimeDifference(diffMs)
+    } else {
+      setTimeDifference(0)
+    }
+  }, []);
 
   useEffect(() => {
     if (timeDifference === null || timeDifference <= 0) return;
@@ -59,17 +62,15 @@ const useSingleMatch = (
         }
         return prev - 1000;
       });
-      setMatch(prev => {
-        if (prev === null) return null;
-        return {
-          ...prev,
-          start: formatCountDown(timeDifference!),
-        };
-      });
+
+      setMatch(prev => ({
+        ...prev,
+        start: formatCountDown(timeDifference!),
+      }));
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timeDifference]);
+  }, []);
 
   return {
     error,

@@ -10,7 +10,6 @@ type AppContextType = {
   isLoadings: boolean;
   setLoadings: (value: boolean) => void;
   getGames: (successCallback: (data: Game[]) => void, errorCallback: (error: PostgrestError|null) => void) => void;
-  findGame: (id: string) => Game | null;
 }
 
 const AppProvider = createContext<AppContextType>({
@@ -19,7 +18,6 @@ const AppProvider = createContext<AppContextType>({
   isLoadings: false,
   setLoadings: () => {},
   getGames: () => {},
-  findGame: () => null,
 })
 
 export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) => {
@@ -57,7 +55,7 @@ export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) 
       */
       // In-App Interstitial
       // @ts-ignore
-      show_9339498({
+      /*show_9339498({
         type: 'inApp',
         inAppSettings: {
           frequency: 2,
@@ -66,7 +64,7 @@ export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) 
           timeout: 90,
           everyPage: false
         }
-      })
+      })*/
 
       // @ts-ignore
       window.Sonar.show({ adUnit: "banner" });
@@ -163,12 +161,9 @@ export const AppContextProvider = ({children}: Readonly<{children: ReactNode}>) 
         })
     }
   }
-  const findGame = (id: string) => {
-    return _games.find(game => game.id == id) || null
-  }
 
   return (
-    <AppProvider value={{ showRewardedAd, showInterstitialAd, isLoadings, setLoadings, getGames, findGame }}>
+    <AppProvider value={{ showRewardedAd, showInterstitialAd, isLoadings, setLoadings, getGames }}>
       {children}
     </AppProvider>
   )

@@ -1,18 +1,17 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
-import {useApp} from "../context/app-provider.tsx";
-import type {Game} from "../data-types.ts";
+import type {DailyMatch, Game} from "../data-types.ts";
 import {useEffect, useState} from "react";
 import useMatchList from "../components/ui/match/useMatchList.ts";
 import {MatchItem} from "../components/ui/match/MatchItem.tsx";
 import BannerAds from "../components/ui/BannerAds.tsx";
 import ScrollableComponent from "../components/ui/ScrollableComponent.tsx";
 import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
+
 const MatchesPage = () => {
-  const {gameId} = useParams()
-  const {findGame} = useApp()
   const navigate = useNavigate()
-  const [game, setGame] = useState<Game|null>()
+  const {state} = useLocation()
+  const game = state?.game as Game | undefined
 
   const [page] = useState(1)
 
@@ -21,28 +20,25 @@ const MatchesPage = () => {
     hasMore,
     matches,
     error
-  } = useMatchList(page, 10, "opened", gameId!)
+  } = useMatchList(page, 10, "opened", game?.id ?? "")
 
   useEffect(() => {
-    if(!gameId){
+    if(!state?.game){
       navigate(-1)
       return
     }
-
-    const foundGame = findGame(gameId)
-    if(foundGame == null){
-      navigate(-1)
-      return
-    }
-    
-    setGame(foundGame)
-  }, [findGame, gameId, navigate]);
+  }, [state]);
 
   useTelegramBackButton(true)
 
 
-  const onMatchDetail = (matchId: string) => {
-    navigate(`/match/${game!.id}/${matchId}`)
+  const onMatchDetail = (match: DailyMatch) => {
+    navigate(`/match`, {
+      state: {
+        game: game,
+        match: match
+      }
+    })
   }
 
   return (
@@ -53,7 +49,7 @@ const MatchesPage = () => {
       {matches.map((match, index) => (
         <div className="flex flex-col gap-2" key={match.id}>
           <MatchItem
-            onClick={()=> onMatchDetail(match.id!)}
+            onClick={()=> onMatchDetail(match!)}
             match={match}
             game={game!}
           >
@@ -61,8 +57,8 @@ const MatchesPage = () => {
               userJoined={match.joined!}
               matchSize={match.match_size!}
               bookedSize={match.booked!}
-              matchId={match.id!}
-              gameId={game!.id!}
+              match={match!}
+              game={game!}
             />
           </MatchItem>
           {index % 4 == 0 && <BannerAds />}

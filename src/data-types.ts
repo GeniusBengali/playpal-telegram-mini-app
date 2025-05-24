@@ -46,7 +46,7 @@ export type Game = Omit<Tables<"games">, "admin_id"|"updated_at"|"created_at"|"v
 export type DailyMatch = Omit<Tables<"daily_match">, "infos"|"prizes"> & {
   infos: TitleValue[],
   prizes: MatchPrize[],
-  prizepool: number;
+  prizepool?: number;
 }
 
 export type TitleValue = {

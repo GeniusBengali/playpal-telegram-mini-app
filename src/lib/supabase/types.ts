@@ -1066,6 +1066,66 @@ export type Database = {
           },
         ]
       }
+      v_match: {
+        Row: {
+          admin_id: string | null
+          created_at: string | null
+          current_players: number | null
+          current_teams: number | null
+          entry_fee: number | null
+          game_id: string | null
+          host_device: string | null
+          id: string | null
+          info_id: string | null
+          match_size: number | null
+          max_teams: number | null
+          prize_id: string | null
+          start: string | null
+          status: string | null
+          team_size: number | null
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          admin_id?: string | null
+          created_at?: string | null
+          current_players?: number | null
+          current_teams?: number | null
+          entry_fee?: number | null
+          game_id?: string | null
+          host_device?: string | null
+          id?: string | null
+          info_id?: string | null
+          match_size?: number | null
+          max_teams?: number | null
+          prize_id?: string | null
+          start?: string | null
+          status?: string | null
+          team_size?: number | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          admin_id?: string | null
+          created_at?: string | null
+          current_players?: number | null
+          current_teams?: number | null
+          entry_fee?: number | null
+          game_id?: string | null
+          host_device?: string | null
+          id?: string | null
+          info_id?: string | null
+          match_size?: number | null
+          max_teams?: number | null
+          prize_id?: string | null
+          start?: string | null
+          status?: string | null
+          team_size?: number | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       admin_carousels_services_menu: {
@@ -1298,6 +1358,56 @@ export type Database = {
           },
         ]
       }
+      match_teams_and_players: {
+        Row: {
+          local_match_id: string | null
+          players: Json | null
+          position: number | null
+          seat: number | null
+        }
+        Insert: {
+          local_match_id?: string | null
+          players?: never
+          position?: number | null
+          seat?: number | null
+        }
+        Update: {
+          local_match_id?: string | null
+          players?: never
+          position?: number | null
+          seat?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teams_local_match_id_fkey"
+            columns: ["local_match_id"]
+            isOneToOne: false
+            referencedRelation: "admin_daily_match"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "teams_local_match_id_fkey"
+            columns: ["local_match_id"]
+            isOneToOne: false
+            referencedRelation: "daily_match"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "teams_local_match_id_fkey"
+            columns: ["local_match_id"]
+            isOneToOne: false
+            referencedRelation: "local_match"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "teams_local_match_id_fkey"
+            columns: ["local_match_id"]
+            isOneToOne: false
+            referencedRelation: "match_participants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       my_transactions: {
         Row: {
           amount: number | null
@@ -1361,13 +1471,6 @@ export type Database = {
         }
         Relationships: []
       }
-      short_infos_prizes: {
-        Row: {
-          infos: Json | null
-          prizes: Json | null
-        }
-        Relationships: []
-      }
       user_with_role: {
         Row: {
           balance: number | null
@@ -1407,6 +1510,7 @@ export type Database = {
         Row: {
           balance: number | null
           banner_art: string | null
+          blocked: boolean | null
           daily_limit: number | null
           email: string | null
           extended_daily_limit: number | null
@@ -1414,6 +1518,7 @@ export type Database = {
           name: string | null
           picture: string | null
           referrer: Json | null
+          social: Json | null
           username: string | null
         }
         Relationships: []
@@ -1421,6 +1526,10 @@ export type Database = {
     }
     Functions: {
       claim_web_reward: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      get_match_info_and_prizes: {
         Args: Record<PropertyKey, never>
         Returns: Json
       }
@@ -1450,10 +1559,12 @@ export type Database = {
           balance: number
           daily_limit: number
           extended_daily_limit: number
+          blocked: boolean
           limit_expire: string
           username: string
           picture: string
           banner_art: string
+          social: Json
         }[]
       }
       join_match: {
@@ -1504,6 +1615,10 @@ export type Database = {
       }
       update_reward_links: {
         Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      update_social: {
+        Args: { uid: string; new_data: Json }
         Returns: undefined
       }
     }

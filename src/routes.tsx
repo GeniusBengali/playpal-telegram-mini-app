@@ -27,15 +27,15 @@ const AppRoutes = createBrowserRouter([
         element: <GamesPage />,
       },
       {
-        path: "games/:gameId",
+        path: "matches",
         element: <MatchesPage />
       },
       {
-        path: "match/:gameId/:matchId",
+        path: "match",
         element: <SingleMatchPage />
       },
       {
-        path: "join-match/:gameId/:matchId",
+        path: "join-match",
         element: <JoinMatchPage />
       },
       {
