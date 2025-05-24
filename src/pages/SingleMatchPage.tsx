@@ -8,6 +8,10 @@ import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
 import MatchPrizepools from "../components/ui/match/MatchPrizepools.tsx";
 import MatchParticipants from "../components/ui/match/MatchParticipants.tsx";
 import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
+import useRealtimeMatchEntrance from "../components/ui/match/useRealtimeMatchEntrance.ts";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {IoCopySharp} from "react-icons/io5";
+import {toast} from "sonner";
 
 const SingleMatchPage = () => {
   const navigate = useNavigate()
@@ -17,6 +21,7 @@ const SingleMatchPage = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false)
 
   useTelegramBackButton(true)
+  const {entrance} = useRealtimeMatchEntrance(matchId!)
 
   const {match} = useSingleMatch(matchId!)
 
@@ -35,7 +40,7 @@ const SingleMatchPage = () => {
         scoreTitle={match?.score_title ?? ""}
       />
       <ScrollableComponent title={`${game?.title} ${game?.mode}`}>
-        <div className="flex flex-col gap-2 mx-4 text-xs">
+        <div className="flex flex-col gap-4 mx-4 text-xs mb-4">
           {game != null && match != null &&
             <>
               <MatchItem
@@ -54,12 +59,32 @@ const SingleMatchPage = () => {
               </MatchItem>
               <div className="flex flex-wrap gap-2 items-start justify-stretch">
                 {match.infos.map((info, index) => (
-                  <div className="flex-1 min-w-[calc(33.333%-6px)] bg-purple-950 rounded-sm border flex flex-col items-center p-1" key={index}>
+                  <div className="flex-1 min-w-[calc(33.333%-6px)] bg-linear-[135deg] from-purple-1000 to-purple-700 rounded-sm border flex flex-col items-center p-1" key={index}>
                     <span className="uppercase font-bold">{info.title}</span>
                     <span>{info.value}</span>
                   </div>
                 ))}
               </div>
+
+              {entrance && (
+                <div className="flex flex-col justify-stretch bg-linear-[135deg] from-purple-1000 to-purple-700 rounded-md border border-dashed">
+                  <h1 className="font-bold font-play p-2 uppercase text-center text-sm border-b">Match Entrance</h1>
+                  {entrance.map((data, index)=> (
+                    <CopyToClipboard
+                      onCopy={() => toast.success("Copied")}
+                      text={data.value}
+                      key={index}
+                    >
+                      <div className="flex gap-2 cursor-pointer p-2 w-fit">
+                        <IoCopySharp />
+                        <strong className="font-bold uppercase">{data.title}:</strong>
+                        <span>{data.value}</span>
+                      </div>
+                    </CopyToClipboard>
+                  ))}
+                </div>
+              )}
+              
               <MatchParticipants
                 teams={match.teams}
                 teamSize={match.team_size!}

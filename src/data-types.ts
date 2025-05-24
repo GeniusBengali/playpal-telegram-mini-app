@@ -44,12 +44,12 @@ export type DepositForm = {
 
 export type Game = Omit<Tables<"games">, "admin_id"|"updated_at"|"created_at"|"visible"|"sort">
 export type DailyMatch = Omit<Tables<"daily_match">, "infos"|"prizes"> & {
-  infos: MatchInfo[],
+  infos: TitleValue[],
   prizes: MatchPrize[],
   prizepool: number;
 }
 
-export type MatchInfo = {
+export type TitleValue = {
   title: string;
   value: string;
 }
@@ -77,4 +77,8 @@ export type MatchTeam = {
   "seat": number;
   "players": MatchPlayer[],
   "position": number;
+}
+
+export type MatchEntrance = {
+  credentials: TitleValue[]
 }

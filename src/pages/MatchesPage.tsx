@@ -8,7 +8,6 @@ import {MatchItem} from "../components/ui/match/MatchItem.tsx";
 import BannerAds from "../components/ui/BannerAds.tsx";
 import ScrollableComponent from "../components/ui/ScrollableComponent.tsx";
 import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
-
 const MatchesPage = () => {
   const {gameId} = useParams()
   const {findGame} = useApp()

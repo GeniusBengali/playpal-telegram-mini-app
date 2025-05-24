@@ -13,7 +13,7 @@ const AppBottomSheet = ({
 }) => {
   return (
     <SwipeableDrawer
-      className="[&>.MuiDrawer-paper]:bg-gray-900 [&>.MuiDrawer-paper]:rounded-t-[8px] [&>.MuiDrawer-paper]:overflow-hidden"
+      className="[&>.MuiDrawer-paper]:bg-gray-900/55 backdrop-blur-xs [&>.MuiDrawer-paper]:rounded-t-[8px] [&>.MuiDrawer-paper]:overflow-hidden"
       anchor="bottom"
       open={isOpen}
       onClose={() => onOpenChange(false)}
