@@ -7,6 +7,7 @@ import {useApp} from "../context/app-provider.tsx";
 import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
 import MatchPrizepools from "../components/ui/match/MatchPrizepools.tsx";
 import MatchParticipants from "../components/ui/match/MatchParticipants.tsx";
+import {useTelegramBackButton} from "../utils/useTelegramBackButton.ts";
 
 const SingleMatchPage = () => {
   const navigate = useNavigate()
@@ -14,6 +15,8 @@ const SingleMatchPage = () => {
   const {findGame} = useApp()
   const game = findGame(gameId!)
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false)
+
+  useTelegramBackButton(true)
 
   const {match} = useSingleMatch(matchId!)
 
