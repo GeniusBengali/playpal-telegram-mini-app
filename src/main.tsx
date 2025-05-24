@@ -29,7 +29,7 @@ const theme = createTheme({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <StyledEngineProvider enableCssLayer>
+      <StyledEngineProvider injectFirst>
         <AuthContextProvider>
           <AppContextProvider>
             <Toaster theme="dark" position="top-right" />

@@ -15,17 +15,7 @@ const MatchBookButton = ({userJoined, matchSize, bookedSize, game, match}:{
     navigate(`/join-match`, {
       state: {
         game: game,
-        match: {
-          id: match.id,
-          title: match.title,
-          status: match.status,
-          start: match.start,
-          match_size: match.match_size,
-          team_size: match.team_size,
-          booked: match.booked,
-          joined: match.joined,
-          entry_fee: match.entry_fee,
-        }
+        match: match
       }
     })
   }

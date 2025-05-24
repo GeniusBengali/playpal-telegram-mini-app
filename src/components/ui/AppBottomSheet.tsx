@@ -13,14 +13,14 @@ const AppBottomSheet = ({
 }) => {
   return (
     <SwipeableDrawer
-      className="[&>.MuiDrawer-paper]:bg-gray-900/55 backdrop-blur-xs [&>.MuiDrawer-paper]:rounded-t-[8px] [&>.MuiDrawer-paper]:overflow-hidden"
+      className="[&>.MuiDrawer-paper]:!bg-gray-900/55 !backdrop-blur-xs [&>.MuiDrawer-paper]:!rounded-t-[8px] [&>.MuiDrawer-paper]:!overflow-hidden"
       anchor="bottom"
       open={isOpen}
       onClose={() => onOpenChange(false)}
       onOpen={() => onOpenChange(true)}
     >
       <div className="w-full rounded-t-[8px] py-3 flex items-center justify-center">
-        <div className="w-9 h-2 bg-gray-600 rounded-full"/>
+        <div className="w-9 h-2 bg-gray-500 rounded-full"/>
       </div>
       <div className="max-h-[90dvh] overflow-y-auto overflow-x-hidden no-scrollbar">
         {children}
