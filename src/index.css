@@ -1,3 +1,4 @@
+@layer theme, base, mui, components, utilities;
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: synthwave --default;
@@ -19,7 +20,14 @@
   --color-purple-1000: #240939;
 }
 * {
-  @apply select-none;
+  @apply select-none
+}
+.no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+html,
+body {
+  @apply w-screen overflow-hidden
 }
 .neumorphic-purple {
   @apply bg-purple-1000;

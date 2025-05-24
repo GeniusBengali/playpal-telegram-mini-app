@@ -1,14 +1,14 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import './index.css'
-import {RouterProvider} from 'react-router-dom'
-import AppRoutes from './routes.tsx'
-import {Toaster} from "sonner";
+import {backButton, closingBehavior, init} from "@telegram-apps/sdk-react";
+import {createTheme, ThemeProvider} from "@mui/material";
+import {RouterProvider} from "react-router-dom";
+import AppRoutes from "./routes.tsx";
 import {AuthContextProvider} from "./context/auth-provider.tsx";
 import {AppContextProvider} from "./context/app-provider.tsx";
-import {backButton, closingBehavior, init} from "@telegram-apps/sdk-react";
+import {Toaster} from "sonner";
 
-// const teleWebApp = window.Telegram.WebApp
 
 if(import.meta.env.PROD){
   init()
@@ -20,13 +20,21 @@ if(import.meta.env.PROD){
   }
 }
 
+const theme = createTheme({
+  colorSchemes: {
+    dark: {}
+  }
+})
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthContextProvider>
-      <AppContextProvider>
-        <Toaster position="top-right" />
-        <RouterProvider router={AppRoutes}/>
-      </AppContextProvider>
-    </AuthContextProvider>
-  </StrictMode>,
+    <ThemeProvider defaultMode="dark" theme={theme}>
+      <AuthContextProvider>
+        <AppContextProvider>
+          <Toaster theme="dark" position="top-right" />
+          <RouterProvider router={AppRoutes}/>
+        </AppContextProvider>
+      </AuthContextProvider>
+    </ThemeProvider>
+  </StrictMode>
 )

@@ -6,6 +6,8 @@ import {useEffect, useState} from "react";
 import useMatchList from "../components/ui/match/useMatchList.ts";
 import {MatchItem} from "../components/ui/match/MatchItem.tsx";
 import BannerAds from "../components/ui/BannerAds.tsx";
+import ScrollableComponent from "../components/ui/ScrollableComponent.tsx";
+import MatchBookButton from "../components/ui/match/MatchBookButton.tsx";
 
 const MatchesPage = () => {
   const {gameId} = useParams()
@@ -27,34 +29,55 @@ const MatchesPage = () => {
       navigate(-1)
       return
     }
+
+    const foundGame = findGame(gameId)
+    if(foundGame == null){
+      navigate(-1)
+      return
+    }
     
-    setGame(findGame(gameId))
+    setGame(foundGame)
   }, [findGame, gameId, navigate]);
 
   useTelegramBackButton(true)
 
+
+  const onMatchDetail = (matchId: string) => {
+    navigate(`/match/${game!.id}/${matchId}`)
+  }
+
   return (
-    <div className="flex-1 flex flex-col gap-4">
-      <h1 className="text-center text-xl uppercase font-play mt-2 app-gradient-font">
-        {game?.title} TOURNAMENTS
-      </h1>
-      <div className="flex-1 flex flex-col gap-3 overflow-y-scroll mx-4 text-xs">
-        {matches.map((match, index) => (
-          <div className="flex flex-col gap-2" key={match.id}>
-            <MatchItem match={match} game={game!} />
-            {index % 4 == 0 && <BannerAds />}
-          </div>
-        ))}
-        {!loading && !hasMore && matches.length == 0 && (
-          <p className="">No tournament available</p>
-        )}
-        {loading && <p className="flex items-center justify-center" ><span className="loading loading-bars loading-md"/></p>}
-        {error && <p>Oops! Something went wrong</p>}
-        {!loading && !hasMore && matches.length > 0 && (
-          <p className="text-center">No more</p>
-        )}
-      </div>
-    </div>
+    <ScrollableComponent
+      title={`${game?.title} TOURNAMENTS`}
+      className="flex flex-col gap-3 mx-4 text-xs"
+    >
+      {matches.map((match, index) => (
+        <div className="flex flex-col gap-2" key={match.id}>
+          <MatchItem
+            onClick={()=> onMatchDetail(match.id!)}
+            match={match}
+            game={game!}
+          >
+            <MatchBookButton
+              userJoined={match.joined!}
+              matchSize={match.match_size!}
+              bookedSize={match.booked!}
+              matchId={match.id!}
+              gameId={game!.id!}
+            />
+          </MatchItem>
+          {index % 4 == 0 && <BannerAds />}
+        </div>
+      ))}
+      {!loading && !hasMore && matches.length == 0 && (
+        <p className="">No tournament available</p>
+      )}
+      {loading && <p className="flex items-center justify-center mb-4" ><span className="loading loading-bars loading-md"/></p>}
+      {error && <p className="text-center mb-4">Oops! Something went wrong</p>}
+      {!loading && !hasMore && matches.length > 0 && (
+        <p className="text-center mb-4">No more</p>
+      )}
+    </ScrollableComponent>
   )
 }
 export default MatchesPage

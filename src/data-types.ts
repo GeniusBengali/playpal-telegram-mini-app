@@ -61,3 +61,6 @@ export type MatchPrize = {
   per_score: number;
   score_prize: number;
 }
+
+export type MatchWithParticipants = DailyMatch & {
+}

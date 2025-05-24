@@ -22,3 +22,14 @@ export const formatMatchTime = (utcDate: string | Date): string => {
   const daysAway = differenceInCalendarDays(startDate, now)
   return `Start in ${daysAway} days`
 }
+
+export const formatCountDown = (diffMs: number): string => {
+  if(diffMs > 0){
+    const hours = String(Math.floor(diffMs / (1000 * 60 * 60))).padStart(2, "0")
+    const minutes = String(Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0")
+    const seconds = String(Math.floor((diffMs % (1000 * 60)) / 1000)).padStart(2, "0")
+    return `${hours}:${minutes}:${seconds}`
+  } else {
+    return "00:00:00"
+  }
+}
