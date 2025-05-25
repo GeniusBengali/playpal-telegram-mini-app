@@ -56,18 +56,10 @@ const JoinMatchPage = () => {
         "p_match_id": match!.id!,
         "p_players": playersNames
       })
-      .single<{
-        status: boolean,
-        message?: string,
-      }>()
-      .then(({data, error}) => {
+      .then(({error}) => {
         setLoading(false)
         if(error){
           toast.error(error.message)
-          return
-        }
-        if(!data!.status){
-          toast.success(data!.message)
           return
         }
 
