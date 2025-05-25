@@ -27,7 +27,7 @@
 }
 html,
 body {
-  @apply w-screen overflow-hidden
+  @apply w-screen overflow-hidden text-start
 }
 .neumorphic-purple {
   @apply bg-purple-1000;

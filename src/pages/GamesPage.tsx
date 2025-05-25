@@ -41,8 +41,8 @@ const GamesPage = () => {
            <img src={game.thumbnail} alt={game.title} className="w-full" loading="lazy" />
            <div className="flex gap-2 items-end bg-linear-120 from-gray-900 to-purple-900 p-1">
              <img src={game.icon} alt={game.title} className="size-10 rounded-sm overflow-hidden" loading="lazy" />
-             <div>
-               <p className="uppercase font-play font-bold app-gradient-font">{game.title}</p>
+             <div className="text-start">
+               <h1 className="uppercase font-play font-bold app-gradient-font">{game.title}</h1>
                <p className="capitalize font-roboto text-gray-300">{game.mode}</p>
              </div>
            </div>
