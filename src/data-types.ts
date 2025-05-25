@@ -47,6 +47,7 @@ export type DailyMatch = Omit<Tables<"daily_match">, "infos"|"prizes"> & {
   infos: TitleValue[],
   prizes: MatchPrize[],
   prizepool?: number;
+  startHumanTime?: string;
 }
 
 export type TitleValue = {
@@ -63,7 +64,7 @@ export type MatchPrize = {
 }
 
 export type MatchWithParticipants = DailyMatch & {
-  teams: MatchTeam[]
+  teams: MatchTeam[],
 }
 
 export type MatchPlayer = {

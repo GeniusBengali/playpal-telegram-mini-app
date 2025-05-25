@@ -52,7 +52,7 @@ const useMatchList = (
             ...prevState,
             ...filteredNewData.map(match => ({
               ...match,
-              start: formatMatchTime(match.start!),
+              startHumanTime: formatMatchTime(match.start!),
               prizepool: matchPrizepool(match.prizes, 50)
             }))
           ]

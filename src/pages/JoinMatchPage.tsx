@@ -65,11 +65,13 @@ const JoinMatchPage = () => {
 
         toast.success("Match booked successfully")
         setPlayers([emptyPlayer])
+        const newMatch = {...match!, joined: true}
         navigete(`/match`, {
           state: {
             game: game!,
-            match: match!
-          }
+            match: newMatch
+          },
+          replace: true,
         })
       })
   }

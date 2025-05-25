@@ -3,16 +3,19 @@ import {useApp} from "../../../context/app-provider.tsx";
 import {supabase} from "../../../lib/supabase/client.ts";
 import type {DailyMatch, MatchTeam, MatchWithParticipants} from "../../../data-types.ts";
 import {formatCountDown} from "../../../utils/formatMatchTime.ts";
+import matchCountPlayers from "../../../utils/matchCountPlayers.ts";
 
 const useSingleMatch = (
   matchData: DailyMatch
 ): {
   error: boolean;
   match: MatchWithParticipants;
+  startTimer: string;
 } => {
   const {setLoadings} = useApp()
   const [error, setError] = useState(false)
   const [match, setMatch] = useState<MatchWithParticipants>(matchData as MatchWithParticipants)
+  const [startTimer, setStartTimer] = useState<string>(matchData.startHumanTime ?? "00:00:00")
   const [timeDifference, setTimeDifference] = useState<number|null>(null)
 
   useEffect(() => {
@@ -32,6 +35,7 @@ const useSingleMatch = (
 
         setMatch(prevState => ({
           ...prevState,
+          booked: matchCountPlayers(data),
           teams: data,
         }))
       })
@@ -63,10 +67,7 @@ const useSingleMatch = (
         return prev - 1000;
       });
 
-      setMatch(prev => ({
-        ...prev,
-        start: formatCountDown(timeDifference!),
-      }));
+      setStartTimer(formatCountDown(timeDifference!))
     }, 1000);
 
     return () => clearTimeout(timeOut);
@@ -75,6 +76,7 @@ const useSingleMatch = (
   return {
     error,
     match,
+    startTimer
   }
 }
 export default useSingleMatch

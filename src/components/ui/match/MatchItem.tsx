@@ -11,12 +11,14 @@ export const MatchItem = ({
   game,
   match,
   onPrizepoolClick,
+  startTime,
   onClick,
   children,
 }: {
   game?: Game;
   match?: DailyMatch;
   onPrizepoolClick?: (e: MouseEvent) => void;
+  startTime?: string;
   onClick?: (e: MouseEvent) => void;
   children: ReactNode;
 }) => {
@@ -33,7 +35,7 @@ export const MatchItem = ({
           <div className="flex-1 flex flex-col gap-2">
             <div className="flex gap-2 items-start">
               <h1 className="flex-1 truncate uppercase font-bold font-play app-gradient-font text-start text-sm">{match?.title}</h1>
-              <span className="p-1 bg-purple-950 rounded-sm">{match?.start}</span>
+              <span className="p-1 bg-purple-950 rounded-sm">{startTime ?? match?.startHumanTime}</span>
               <span className="text-[8px] px-1 rounded-xs text-white bg-green-600">LIVE</span>
             </div>
             <div className="flex gap-1">

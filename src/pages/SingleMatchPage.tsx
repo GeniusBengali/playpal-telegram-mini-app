@@ -18,7 +18,7 @@ const SingleMatchPage = () => {
 
   useTelegramBackButton(true)
 
-  const {match} = useSingleMatch(state.match)
+  const {match, startTimer} = useSingleMatch(state.match)
 
   useEffect(() => {
     if(state == null){
@@ -44,6 +44,7 @@ const SingleMatchPage = () => {
                 onPrizepoolClick={() => {
                   setBottomSheetOpen(true)
                 }}
+                startTime={startTimer}
               >
                 <MatchBookButton
                   userJoined={match.joined!}
