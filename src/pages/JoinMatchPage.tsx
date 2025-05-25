@@ -37,7 +37,7 @@ const JoinMatchPage = () => {
             setPlayers(newPlayers)
           }}
           hideDeleteButton={index == 0}
-          hideAddButton={index != players.length - 1 || match.booked!+players.length >= match.match_size! }
+          hideAddButton={index != players.length - 1 || match!.booked!+players.length >= match!.match_size! }
           onClickAdd={() => {
             setPlayers([...players, ""])
           }}
