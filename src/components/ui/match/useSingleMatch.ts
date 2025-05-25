@@ -54,10 +54,10 @@ const useSingleMatch = (
   useEffect(() => {
     if (timeDifference === null || timeDifference <= 0) return;
 
-    const interval = setInterval(() => {
+    const timeOut = setTimeout(() => {
       setTimeDifference(prev => {
         if (prev === null || prev <= 1000) {
-          clearInterval(interval);
+          clearInterval(timeOut);
           return 0;
         }
         return prev - 1000;
@@ -69,8 +69,8 @@ const useSingleMatch = (
       }));
     }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearTimeout(timeOut);
+  }, [timeDifference]);
 
   return {
     error,

@@ -35,7 +35,7 @@ const MatchParticipants = ({matchStatus, teams, matchSize, teamSize}: {
           <div className="flex-1 flex flex-col items-stretch">
             <EmptyPlayer/>
             {seat % 6 == 0 && (
-              <span className="flex-1 p-2 border-l border-t" key={seat+"ads"} >
+              <span className="flex-1 bg-red-950 p-2 border-l border-t" >
                 <BannerAds />
               </span>
             )}
@@ -52,19 +52,19 @@ const MatchParticipants = ({matchStatus, teams, matchSize, teamSize}: {
         <span className="flex-1 p-2 border-l">Player</span>
       </div>
 
-      {teams?.map((team) => (
-        <div className="flex items-stretch" key={team.seat}>
+      {teams?.map((team, teamIndex) => (
+        <div className="flex items-stretch" key={teamIndex}>
           <span className={"w-14 flex items-center justify-center p-2 text-center border-t"}>{team.seat}</span>
           <div className="flex-1 flex flex-col items-stretch">
             {team.players.map((player, playerIndex) => (
-              <>
-                <span className={`flex-1 p-2 border-l border-t ${player.user_id == userId && "bg-purple-700"}`} key={playerIndex}>{player.name}</span>
+              <div className="flex-1 flex flex-col" key={playerIndex}>
+                <span className={`flex-1 p-2 border-l border-t ${player.user_id == userId && "bg-purple-700"}`}>{player.name}</span>
                 {team.seat % 6 == 0 && (
-                  <span className="flex-1 p-2 border-l border-t" key={team.seat+"-ads"} >
+                  <span className="flex-1 bg-red-950 p-2 border-l border-t">
                     <BannerAds />
                   </span>
                 )}
-              </>
+              </div>
             ))}
             <EmptyPlayer size={teamSize - team.players.length}/>
           </div>

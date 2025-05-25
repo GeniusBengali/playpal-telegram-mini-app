@@ -12,6 +12,8 @@ const MatchPlayerInput = ({
   onClickDelete,
   hideDeleteButton = false,
   hideAddButton = false,
+  hasError = false,
+  errorText = "",
 }: {
   gameIcon: string;
   gameTitle: string;
@@ -21,17 +23,22 @@ const MatchPlayerInput = ({
   onClickDelete?: () => void;
   hideDeleteButton?: boolean;
   hideAddButton?: boolean;
+  hasError?: boolean;
+  errorText?: string;
 }) => {
   return (
-    <div className="flex gap-2 bg-purple-950 p-2 rounded-sm">
+    <div className={`flex gap-2 ${hasError ? "bg-red-950" : "bg-purple-950"} p-2 rounded-sm`}>
       <img
         src={gameIcon}
         alt={gameTitle}
         className="size-14 rounded-sm overflow-hidden"
         loading="lazy"
       />
-      <div className="flex-1 flex flex-col gap-2">
-        <span className="uppercase font-play font-bold">{gameTitle}</span>
+      <div className="flex-1 flex flex-col justify-between gap-2">
+        <div className="flex items-start justify-between">
+          <span className="uppercase font-play font-bold">{gameTitle}</span>
+          <span className="text-red-600">{errorText}</span>
+        </div>
         <input
           placeholder="IN-GAME NAME"
           className="input input-sm bg-purple-1000"
