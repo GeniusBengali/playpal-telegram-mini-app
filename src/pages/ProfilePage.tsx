@@ -19,10 +19,6 @@ const ProfilePage = () => {
   }
 
   return (
-    <div>To continue please download Playpal from google play store</div>
-  )
-
-  return (
     <div className="flex-1 flex flex-col gap-4">
       <ProfileHeader
         user={user}
