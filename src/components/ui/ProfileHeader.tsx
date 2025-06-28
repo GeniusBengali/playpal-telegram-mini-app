@@ -1,5 +1,5 @@
 import {FaSackDollar} from "react-icons/fa6";
-import {IoAddCircle, IoLogOutOutline} from "react-icons/io5";
+import {IoLogOutOutline} from "react-icons/io5";
 import {useState} from "react";
 import {supabase} from "../../lib/supabase/client.ts";
 import type {AppUser} from "../../data-types.ts";
