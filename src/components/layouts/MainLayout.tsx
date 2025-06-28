@@ -16,11 +16,6 @@ const MainLayout = () => {
     })
   }
 
-
-  return (
-    <div>To continue please download Playpal from google play store</div>
-  )
-
   return (
     <div className="font-roboto h-dvh flex flex-col">
       <Loading isLoading={isLoadings} />

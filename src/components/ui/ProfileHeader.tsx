@@ -74,10 +74,10 @@ const ProfileHeader = ({
             </div>
           </div>
         </div>
-        <label htmlFor="add_balance_form" className="h-7 flex items-center justify-center gap-1 text-yellow-300">
+        {/*<label htmlFor="add_balance_form" className="h-7 flex items-center justify-center gap-1 text-yellow-300">
           <IoAddCircle size={24} />
           <p className="font-roboto text-xs">Deposit</p>
-        </label>
+        </label>*/}
       </div>
     </div>
   )
