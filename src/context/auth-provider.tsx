@@ -42,7 +42,7 @@ export const AuthContextProvider = ({children}: Readonly<{children: React.ReactN
             return
           }
 
-          setUser(data);
+          setUser({...data, id: session?.user?.id});
         })
     } else {
       setAuthState(AuthState.UNAUTHENTICATED)
