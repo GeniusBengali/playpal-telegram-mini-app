@@ -9,6 +9,7 @@ export const DummyData: {
     email: "<EMAIL>",
     username: "<USERNAME>",
     balance: 123.45,
+    topup_balance: 0,
     banner_art: "",
     blocked: false,
     note: "",
