@@ -1,14 +1,15 @@
 import {FaSackDollar} from "react-icons/fa6";
-import {IoLogOutOutline} from "react-icons/io5";
+import {IoAddCircle, IoLogOutOutline} from "react-icons/io5";
 import {useState} from "react";
 import {supabase} from "../../lib/supabase/client.ts";
 import type {AppUser} from "../../data-types.ts";
 import {toast} from "sonner";
 import {useApp} from "../../context/app-provider.tsx";
+import {Link} from "react-router-dom";
 
 const ProfileHeader = ({
   user,
-  updateUser,
+  updateUser
 }: Readonly<{
   user: AppUser | null;
   updateUser: (data: AppUser) => void;
@@ -74,10 +75,13 @@ const ProfileHeader = ({
             </div>
           </div>
         </div>
-        {/*<label htmlFor="add_balance_form" className="h-7 flex items-center justify-center gap-1 text-yellow-300">
+        <Link
+          className="h-7 flex items-center justify-center gap-1 !text-yellow-300"
+          to="/topup"
+        >
           <IoAddCircle size={24} />
-          <p className="font-roboto text-xs">Deposit</p>
-        </label>*/}
+          <p className="font-roboto text-xs">Top-Up</p>
+        </Link>
       </div>
     </div>
   )

@@ -38,7 +38,7 @@ const JoinMatchPage = () => {
       return
     }
 
-    if(match!.entry_fee! * players.length > user!.balance){
+    if(match!.entry_fee! * players.length > (user!.balance + user!.topup_balance)){
       toast.error("You don't have enough balance")
     }
 

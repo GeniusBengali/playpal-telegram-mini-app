@@ -17,9 +17,6 @@ export type AppUser = {
   banner_art: string;
   balance: number;
   topup_balance: number;
-  daily_limit: number;
-  extended_daily_limit: number;
-  limit_expire: string;
   referrer: Profile;
   social: Social;
   blocked: boolean;

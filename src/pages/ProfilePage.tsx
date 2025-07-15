@@ -1,6 +1,5 @@
 import {useAuth} from "../context/auth-provider.tsx";
 import ProfileHeader from "../components/ui/ProfileHeader.tsx";
-import AddBalanceForm from "../components/ui/AddBalanceForm.tsx";
 import {PiGameControllerDuotone} from "react-icons/pi";
 import {AppIcon} from "../components/ui/AppIcon.tsx";
 import {BiTask} from "react-icons/bi";
@@ -24,7 +23,7 @@ const ProfilePage = () => {
         user={user}
         updateUser={updateUser}
       />
-      <AddBalanceForm />
+      {/*<AddBalanceForm />*/}
       <div className="flex-1 flex flex-col gap-4 px-4 overflow-y-auto">
         <div className="border rounded-md p-4 flex items-center justify-between bg-linear-120 from-black to-purple-900">
           <h1 className="text-2xl text-white app-icon-shadow font-share-tech">Claim Rewards <br/> Today</h1>

@@ -1,8 +1,9 @@
 import {GiSwordsPower} from "react-icons/gi";
 import {FaHandHoldingDollar} from "react-icons/fa6";
-import {IoDiamond, IoHome} from "react-icons/io5";
+import {IoHome} from "react-icons/io5";
 import {Link, useLocation} from "react-router-dom";
 import {IconContext, type IconType} from "react-icons";
+import {HiOutlineShoppingBag} from "react-icons/hi2";
 
 const BottomNavigation = () => {
   const getPath = useLocation().pathname
@@ -25,10 +26,10 @@ const BottomNavigation = () => {
       childPath: ["/games"]
     },
     {
-      Icon: IoDiamond,
-      path: "/topup",
-      label: "Topup",
-      childPath: ["/topup"]
+      Icon: HiOutlineShoppingBag,
+      path: "/shop",
+      label: "Shop",
+      childPath: ["/shop"]
     },
     {
       Icon: FaHandHoldingDollar,
