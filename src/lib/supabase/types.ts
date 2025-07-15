@@ -7,6 +7,11 @@ export type Json =
   | Json[]
 
 export type Database = {
+  // Allows to automatically instanciate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "12.2.3 (519615d)"
+  }
   public: {
     Tables: {
       carousels: {
@@ -515,6 +520,39 @@ export type Database = {
           },
         ]
       }
+      playpal_topup: {
+        Row: {
+          created_at: string
+          discount_price: number | null
+          id: string
+          is_active: boolean
+          price: number
+          sort: number
+          title: string
+          topup_amount: number
+        }
+        Insert: {
+          created_at?: string
+          discount_price?: number | null
+          id?: string
+          is_active?: boolean
+          price: number
+          sort: number
+          title: string
+          topup_amount: number
+        }
+        Update: {
+          created_at?: string
+          discount_price?: number | null
+          id?: string
+          is_active?: boolean
+          price?: number
+          sort?: number
+          title?: string
+          topup_amount?: number
+        }
+        Relationships: []
+      }
       prizepools: {
         Row: {
           admin_id: string
@@ -817,6 +855,7 @@ export type Database = {
           direction: Database["public"]["Enums"]["PAYMENT_DIRECTION"]
           fee: number | null
           id: string
+          is_wallet_affected: boolean | null
           method_id: string | null
           remark: string | null
           status: Database["public"]["Enums"]["PAYMENT_STATUS"]
@@ -835,6 +874,7 @@ export type Database = {
           direction: Database["public"]["Enums"]["PAYMENT_DIRECTION"]
           fee?: number | null
           id?: string
+          is_wallet_affected?: boolean | null
           method_id?: string | null
           remark?: string | null
           status?: Database["public"]["Enums"]["PAYMENT_STATUS"]
@@ -853,6 +893,7 @@ export type Database = {
           direction?: Database["public"]["Enums"]["PAYMENT_DIRECTION"]
           fee?: number | null
           id?: string
+          is_wallet_affected?: boolean | null
           method_id?: string | null
           remark?: string | null
           status?: Database["public"]["Enums"]["PAYMENT_STATUS"]
@@ -965,6 +1006,7 @@ export type Database = {
           name: string
           note: string | null
           referred_by: string | null
+          topup_balance: number
           updated_at: string
         }
         Insert: {
@@ -981,6 +1023,7 @@ export type Database = {
           name: string
           note?: string | null
           referred_by?: string | null
+          topup_balance?: number
           updated_at?: string
         }
         Update: {
@@ -997,6 +1040,7 @@ export type Database = {
           name?: string
           note?: string | null
           referred_by?: string | null
+          topup_balance?: number
           updated_at?: string
         }
         Relationships: [
@@ -1065,66 +1109,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      v_match: {
-        Row: {
-          admin_id: string | null
-          created_at: string | null
-          current_players: number | null
-          current_teams: number | null
-          entry_fee: number | null
-          game_id: string | null
-          host_device: string | null
-          id: string | null
-          info_id: string | null
-          match_size: number | null
-          max_teams: number | null
-          prize_id: string | null
-          start: string | null
-          status: string | null
-          team_size: number | null
-          title: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          admin_id?: string | null
-          created_at?: string | null
-          current_players?: number | null
-          current_teams?: number | null
-          entry_fee?: number | null
-          game_id?: string | null
-          host_device?: string | null
-          id?: string | null
-          info_id?: string | null
-          match_size?: number | null
-          max_teams?: number | null
-          prize_id?: string | null
-          start?: string | null
-          status?: string | null
-          team_size?: number | null
-          title?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          admin_id?: string | null
-          created_at?: string | null
-          current_players?: number | null
-          current_teams?: number | null
-          entry_fee?: number | null
-          game_id?: string | null
-          host_device?: string | null
-          id?: string | null
-          info_id?: string | null
-          match_size?: number | null
-          max_teams?: number | null
-          prize_id?: string | null
-          start?: string | null
-          status?: string | null
-          team_size?: number | null
-          title?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
       }
     }
     Views: {
@@ -1471,6 +1455,27 @@ export type Database = {
         }
         Relationships: []
       }
+      topup_items: {
+        Row: {
+          discount_price: number | null
+          id: string | null
+          price: number | null
+          title: string | null
+        }
+        Insert: {
+          discount_price?: number | null
+          id?: string | null
+          price?: number | null
+          title?: string | null
+        }
+        Update: {
+          discount_price?: number | null
+          id?: string | null
+          price?: number | null
+          title?: string | null
+        }
+        Relationships: []
+      }
       user_with_role: {
         Row: {
           balance: number | null
@@ -1519,6 +1524,7 @@ export type Database = {
           picture: string | null
           referrer: Json | null
           social: Json | null
+          topup_balance: number | null
           username: string | null
         }
         Relationships: []
@@ -1557,6 +1563,7 @@ export type Database = {
           name: string
           email: string
           balance: number
+          topup_balance: number
           daily_limit: number
           extended_daily_limit: number
           blocked: boolean
@@ -1576,7 +1583,7 @@ export type Database = {
         Returns: Json
       }
       my_referrer: {
-        Args: { p_username: string }
+        Args: { p_username: string; p_device_id: string }
         Returns: undefined
       }
       payout: {
@@ -1609,6 +1616,10 @@ export type Database = {
         Args: { reason: string }
         Returns: undefined
       }
+      topup: {
+        Args: { p_uid: string; p_product_id: string; p_remark: string }
+        Returns: Json
+      }
       update_match_result: {
         Args: { p_result: Json }
         Returns: Json
@@ -1629,7 +1640,6 @@ export type Database = {
         | "youtube_short"
         | "website"
         | "tiktok_video"
-      LUDO_STATUS: "searching" | "playing" | "played"
       MATCH_STATUS:
         | "pending"
         | "opened"
@@ -1642,15 +1652,16 @@ export type Database = {
       PAYMENT_DIRECTION: "in" | "out"
       PAYMENT_STATUS: "pending" | "done" | "failed"
       PAYMENT_TYPE:
-        | "cash-in"
+        | "top-up"
         | "cash-out"
         | "send-money"
         | "receive-money"
         | "purchase-shop"
         | "purchase-match"
         | "adjust"
-        | "web-reward"
+        | "refer-bonus"
         | "match-reward"
+        | "free-match-reward"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1658,21 +1669,25 @@ export type Database = {
   }
 }
 
-type DefaultSchema = Database[Extract<keyof Database, "public">]
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
@@ -1690,14 +1705,16 @@ export type Tables<
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
@@ -1713,14 +1730,16 @@ export type TablesInsert<
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
@@ -1736,14 +1755,16 @@ export type TablesUpdate<
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
     ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
@@ -1751,14 +1772,16 @@ export type Enums<
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
@@ -1773,7 +1796,6 @@ export const Constants = {
         "website",
         "tiktok_video",
       ],
-      LUDO_STATUS: ["searching", "playing", "played"],
       MATCH_STATUS: [
         "pending",
         "opened",
@@ -1787,15 +1809,16 @@ export const Constants = {
       PAYMENT_DIRECTION: ["in", "out"],
       PAYMENT_STATUS: ["pending", "done", "failed"],
       PAYMENT_TYPE: [
-        "cash-in",
+        "top-up",
         "cash-out",
         "send-money",
         "receive-money",
         "purchase-shop",
         "purchase-match",
         "adjust",
-        "web-reward",
+        "refer-bonus",
         "match-reward",
+        "free-match-reward",
       ],
     },
   },

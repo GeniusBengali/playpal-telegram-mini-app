@@ -58,7 +58,7 @@ const ProfileHeader = ({
         <div>
           <h6 className="font-roboto font-bold mb-2 text-xl app-gradient-font">{user?.name}</h6>
           <div className="w-36 h-7 bg-white border border-white rounded-full overflow-hidden relative flex items-center">
-            <p className="px-2 text-gray-800">{user?.balance} TK</p>
+            <p className="px-2 text-gray-800">{user?.balance + user?.topup_balance} TK</p>
 
             <div onClick={onRequestBalanceVisibility} className={`absolute top-0 left-0 w-full h-full bg-purple-900 rounded-full flex items-center gap-2 text-white transition-transform ${balanceVisible && "translate-x-[116px]"}`}>
               <div className="relative size-[20px] ml-[4px]">
